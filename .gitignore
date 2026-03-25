@@ -38,3 +38,7 @@ next-env.d.ts
 # Internal dev skill — not part of the app, never push to repo
 /next-best-practices
 
+# Gemini AI logs and audits
+.gemini-lint.txt
+design-audit.md
+CHANGES.md
