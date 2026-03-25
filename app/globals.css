@@ -8,6 +8,9 @@
    TODO: Revisit these values once exact brand colors are confirmed.
    ────────────────────────────────────────────────────────────────────────── */
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
   :root {
     --brand-charcoal: #1c1c1c;
     --brand-charcoal-light: #2e2e2e;
@@ -34,5 +37,22 @@
   h5,
   h6 {
     font-family: var(--font-heading), Georgia, serif;
+  }
+}
+
+@layer utilities {
+  /* Hides scrollbar while preserving scroll behavior — used in MenuHighlights snap strip */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Pause marquee on hover for accessibility */
+  .animate-marquee-left:hover,
+  .animate-marquee-right:hover {
+    animation-play-state: paused;
   }
 }
