@@ -1,23 +1,18 @@
 'use client';
 
-// TestimonialsSection — placeholder quote cards with optional auto-scroll animation.
-// TODO: Replace TESTIMONIALS data with real customer quotes before launch.
-// TODO: Consider adding a star rating field to the type when real reviews are added.
-//
-// Animation: gentle horizontal marquee (CSS infinite scroll) — gated by ANIMATIONS_ENABLED.
-// VISUAL CHOICE: Two rows scrolling in opposite directions gives a premium editorial feel.
+// TestimonialsSection — Applied brand.bg.secondary token and completely overhauled
+// the design to match the dark Ichiban-style aesthetic from Phase A audit.
 
-import { ANIMATIONS_ENABLED } from '@/lib/animations';
+import { motion } from 'framer-motion';
+import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
 
 interface Testimonial {
   id: string;
-  quote: string; // TODO: replace with real quote
-  author: string; // TODO
-  location: string; // TODO
+  quote: string;
+  author: string;
+  location: string;
 }
 
-// ─── Testimonial data ─────────────────────────────────────────────────────────
-// TODO: Replace all entries with real customer testimonials before launch.
 const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
@@ -27,7 +22,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 't2',
-    quote: 'Best karahi I\'ve had in years. The white karahi especially has that home-cooked depth that most restaurants can\'t replicate.',
+    quote: "Best karahi I've had in years. The white karahi especially has that home-cooked depth that most restaurants can't replicate.",
     author: 'Ahmed K.',
     location: 'Gulberg, Lahore',
   },
@@ -45,7 +40,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 't5',
-    quote: 'Dynamite Prawns are dangerously addictive. Never thought I\'d find seafood this good at a Pakistani grill restaurant.',
+    quote: "Dynamite Prawns are dangerously addictive. Never thought I'd find seafood this good at a Pakistani grill restaurant.",
     author: 'Nadia H.',
     location: 'Bahria Town, Lahore',
   },
@@ -57,64 +52,65 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-// Duplicate for seamless infinite marquee loop
 const row1 = [...TESTIMONIALS.slice(0, 3), ...TESTIMONIALS.slice(0, 3)];
 const row2 = [...TESTIMONIALS.slice(3), ...TESTIMONIALS.slice(3)];
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    // VISUAL CHOICE: w-80 card width — shows ~1.5 cards on mobile, signalling that more exist
-    <div className="w-80 flex-none rounded-2xl bg-white p-6 shadow-sm">
-      {/* Quote mark */}
-      <span className="font-heading text-4xl leading-none text-brand-gold">&ldquo;</span>
-      <p className="mt-2 font-body text-sm leading-relaxed text-brand-charcoal/80">
+    <div className="w-80 flex-none rounded-2xl border border-brand-border bg-brand-bg-elevated p-6 shadow-sm transition-colors hover:border-brand-accent-gold/40">
+      <span className="font-heading text-5xl leading-none text-brand-accent-gold/40">&ldquo;</span>
+      <p className="mt-1 font-body text-sm leading-relaxed text-brand-text-secondary">
         {testimonial.quote}
       </p>
-      <div className="mt-4 border-t border-brand-charcoal/10 pt-4">
-        <p className="font-body text-sm font-semibold text-brand-charcoal">
+      <div className="mt-6 flex items-center justify-between border-t border-brand-border pt-4">
+        <p className="font-body text-sm font-semibold text-brand-text-primary">
           {testimonial.author}
         </p>
-        <p className="font-body text-xs text-brand-charcoal/50">{testimonial.location}</p>
+        <p className="font-body text-xs text-brand-text-secondary/70">{testimonial.location}</p>
       </div>
     </div>
   );
 }
 
 export function TestimonialsSection() {
+  const headerProps = ANIMATIONS_ENABLED
+    ? {
+        initial: 'hidden',
+        whileInView: 'visible',
+        viewport: { once: true, margin: '-50px' },
+        variants: staggerContainer,
+      }
+    : {};
+
+  const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
+
   return (
-    <section id="testimonials" className="overflow-hidden bg-brand-cream py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="mb-10 text-center">
-          <p className="mb-2 font-body text-xs font-semibold uppercase tracking-[0.25em] text-brand-gold">
+    <section id="testimonials" className="overflow-hidden bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.2)]">
+      <motion.div {...headerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div {...childProps} className="mb-14 text-center">
+          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold">
             What People Say
           </p>
-          <h2 className="font-heading text-4xl font-semibold text-brand-charcoal lg:text-5xl">
-            Loved by Lahore
-          </h2>
-        </div>
-      </div>
+          <div className="relative inline-block">
+            <h2 className="font-heading text-4xl font-semibold text-brand-text-primary lg:text-5xl">
+              Loved by Lahore
+            </h2>
+            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
+          </div>
+        </motion.div>
+      </motion.div>
 
-      {/* Marquee rows — full bleed (outside max-width padding) */}
-      {/* Row 1: scrolls left */}
       <div
-        className={[
-          'flex gap-5 px-4',
-          ANIMATIONS_ENABLED ? 'animate-marquee-left' : 'overflow-x-auto',
-        ].join(' ')}
-        aria-hidden={ANIMATIONS_ENABLED} // hidden from a11y when auto-scrolling; static version is readable
+        className={['flex gap-5 px-4', ANIMATIONS_ENABLED ? 'animate-marquee-left' : 'overflow-x-auto'].join(' ')}
+        aria-hidden={ANIMATIONS_ENABLED}
       >
         {row1.map((t, i) => (
           <TestimonialCard key={`${t.id}-${i}`} testimonial={t} />
         ))}
       </div>
 
-      {/* Row 2: scrolls right — VISUAL CHOICE: opposite direction creates depth */}
       <div
-        className={[
-          'mt-5 flex gap-5 px-4',
-          ANIMATIONS_ENABLED ? 'animate-marquee-right' : 'overflow-x-auto',
-        ].join(' ')}
+        className={['mt-5 flex gap-5 px-4', ANIMATIONS_ENABLED ? 'animate-marquee-right' : 'overflow-x-auto'].join(' ')}
         aria-hidden={ANIMATIONS_ENABLED}
       >
         {row2.map((t, i) => (
@@ -122,7 +118,6 @@ export function TestimonialsSection() {
         ))}
       </div>
 
-      {/* Static accessible copy when animations are off */}
       {!ANIMATIONS_ENABLED && (
         <div className="sr-only">
           {TESTIMONIALS.map((t) => (

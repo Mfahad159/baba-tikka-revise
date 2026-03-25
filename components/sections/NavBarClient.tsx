@@ -1,9 +1,7 @@
 'use client';
 
-// NavBarClient — dark-themed floating pill, active link highlighting.
-// Active link detection: IntersectionObserver watches section IDs.
-// When a section is >40% in view, its nav link is marked active.
-// Lucide-react: Menu/X icons for hamburger.
+// NavBarClient
+// Redesigned with brand tokens and standardized colors globally.
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -25,18 +23,15 @@ const SCROLL_THRESHOLD = 40;
 export function NavBarClient() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  // Tracks which section's ID is currently in view
   const [activeSection, setActiveSection] = useState<string>('home');
   const { totalItems } = useCart();
 
-  // Scroll → frosted pill transition
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // IntersectionObserver — marks the section occupying ≥40% of viewport as active
   useEffect(() => {
     const sectionIds = NAV_LINKS.map((l) => l.sectionId).filter(Boolean);
     const observers: IntersectionObserver[] = [];
@@ -63,7 +58,6 @@ export function NavBarClient() {
 
   return (
     <>
-      {/* Floating pill header — sits above the dark hero */}
       <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 sm:px-6">
         <motion.header
           initial={false}
@@ -73,7 +67,7 @@ export function NavBarClient() {
                   backgroundColor: 'rgba(12,12,12,0.80)',
                   boxShadow: '0 4px 32px rgba(0,0,0,0.40)',
                   backdropFilter: 'blur(20px)',
-                  borderColor: 'rgba(200,150,62,0.20)',
+                  borderColor: 'rgba(200,150,62,0.20)', // subtle gold
                 }
               : {
                   backgroundColor: 'rgba(12,12,12,0)',
@@ -84,16 +78,13 @@ export function NavBarClient() {
           }
           style={{ WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(0px)' }}
           transition={{ duration: 0.35, ease: 'easeInOut' }}
-          // VISUAL CHOICE: rounded-full exactly matches the perfect pill shape of the active link highlight.
-          className="w-full max-w-5xl rounded-full border px-5 py-2.5"
+          className="w-full max-w-5xl rounded-full border px-5 py-2.5 transition-all duration-300"
         >
           <div className="flex h-11 items-center justify-between">
-            {/* Logo — white on dark bg */}
             <Link href="/" onClick={close}>
-              <Logo className="text-white" />
+              <Logo className="text-brand-text-primary" />
             </Link>
 
-            {/* Desktop nav */}
             <nav className="hidden items-center gap-1 md:flex">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.sectionId;
@@ -103,14 +94,13 @@ export function NavBarClient() {
                     href={link.href}
                     className={[
                       'relative rounded-full px-4 py-1.5 font-body text-sm font-medium transition-colors',
-                      isActive ? 'text-white' : 'text-white/50 hover:text-white/80',
+                      isActive ? 'text-brand-text-primary' : 'text-brand-text-secondary hover:text-brand-text-primary',
                     ].join(' ')}
                   >
-                    {/* Active pill highlight — slides under the active link */}
                     {isActive && (
                       <motion.span
                         layoutId="nav-active-pill"
-                        className="absolute inset-0 rounded-full bg-white/10 ring-1 ring-white/15"
+                        className="absolute inset-0 rounded-full bg-brand-text-primary/10 ring-1 ring-brand-text-primary/15"
                         transition={{ type: 'spring', stiffness: 380, damping: 34 }}
                       />
                     )}
@@ -120,20 +110,20 @@ export function NavBarClient() {
               })}
             </nav>
 
-            {/* CTA + cart + hamburger */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Cart Icon — visible on all screen sizes */}
               <Link
                 href="/cart"
                 aria-label="View Cart"
-                className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/80 transition-colors hover:bg-white/10 hover:text-brand-gold"
+                className="relative flex h-9 w-9 items-center justify-center rounded-full bg-brand-text-primary/5 text-brand-text-secondary transition-colors hover:bg-brand-text-primary/10 hover:text-brand-accent-gold"
               >
                 <ShoppingCart size={18} />
                 {totalItems > 0 && (
                   <motion.span
+                    key={totalItems}
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-gold font-body text-[9px] font-bold text-white shadow-sm"
+                    transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+                    className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent-gold font-body text-[9px] font-bold text-brand-text-primary shadow-sm"
                   >
                     {totalItems}
                   </motion.span>
@@ -142,17 +132,16 @@ export function NavBarClient() {
 
               <Link
                 href="/#reservations"
-                className="hidden rounded-full bg-brand-gold px-5 py-2 font-body text-sm font-semibold text-white shadow-md shadow-brand-gold/30 transition-all hover:bg-brand-gold-dark md:inline-flex"
+                className="hidden rounded-full bg-brand-accent-gold px-5 py-2 font-body text-sm font-semibold text-brand-text-primary shadow-md shadow-brand-accent-gold/30 transition-all hover:bg-[#976d29] md:inline-flex"
               >
                 Contact Us
               </Link>
 
-              {/* Hamburger — Lucide icons */}
               <button
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((o) => !o)}
-                className="flex h-9 w-9 items-center justify-center rounded-xl text-white/70 hover:text-white md:hidden"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-brand-text-secondary hover:text-brand-text-primary md:hidden"
               >
                 {menuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -161,7 +150,6 @@ export function NavBarClient() {
         </motion.header>
       </div>
 
-      {/* Mobile drawer */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -179,13 +167,12 @@ export function NavBarClient() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-[#0C0C0C] px-8 py-20 shadow-2xl md:hidden"
+              className="fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-brand-bg-primary px-8 py-20 shadow-2xl md:hidden"
             >
-              {/* Close Button Inside Drawer */}
               <button
                 onClick={close}
                 aria-label="Close menu"
-                className="absolute right-6 top-6 flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                className="absolute right-6 top-6 flex h-9 w-9 items-center justify-center rounded-full bg-brand-text-primary/5 text-brand-text-secondary transition-colors hover:bg-brand-text-primary/10 hover:text-brand-text-primary"
               >
                 <X size={20} />
               </button>
@@ -200,7 +187,7 @@ export function NavBarClient() {
                       onClick={close}
                       className={[
                         'font-heading text-2xl font-semibold transition-colors',
-                        isActive ? 'text-brand-gold' : 'text-white/60 hover:text-white',
+                        isActive ? 'text-brand-accent-gold' : 'text-brand-text-secondary hover:text-brand-text-primary',
                       ].join(' ')}
                     >
                       {link.label}
@@ -210,7 +197,7 @@ export function NavBarClient() {
                 <Link
                   href="#reservations"
                   onClick={close}
-                  className="mt-4 rounded-full bg-brand-gold px-6 py-3 text-center font-body text-sm font-semibold text-white shadow-md"
+                  className="mt-4 rounded-full bg-brand-accent-gold px-6 py-3 text-center font-body text-sm font-semibold text-brand-text-primary shadow-md"
                 >
                   Contact Us
                 </Link>

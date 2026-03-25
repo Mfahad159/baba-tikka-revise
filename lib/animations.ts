@@ -1,15 +1,19 @@
-// ─── Global Animation Toggle ──────────────────────────────────────────────────
-// Set to `false` to instantly disable ALL animations across the site.
-// Useful for the client demo or low-motion preference overrides.
-// TODO: Wire this to prefers-reduced-motion in Phase 3.
+import { Variants } from 'framer-motion';
+
+// Universal scroll-entrance variant defined in Phase A Design Audit
 export const ANIMATIONS_ENABLED = true;
 
-// Default animation durations (ms) — adjust here for global tuning
-export const ANIM_DURATION = {
-  fast: 300,
-  normal: 600,
-  slow: 900,
-} as const;
+export const scrollEntrance: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
 
-// Default stagger delay between animated children (ms)
-export const ANIM_STAGGER = 60;
+export const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
