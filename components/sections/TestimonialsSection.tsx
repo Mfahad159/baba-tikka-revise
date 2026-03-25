@@ -52,21 +52,22 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-const row1 = [...TESTIMONIALS.slice(0, 3), ...TESTIMONIALS.slice(0, 3)];
-const row2 = [...TESTIMONIALS.slice(3), ...TESTIMONIALS.slice(3)];
+// Dynamically generate 24 dense cards per row to flawlessly mask 4K ultrawide marquee scroll bounds
+const row1 = Array(8).fill(TESTIMONIALS.slice(0, 3)).flat();
+const row2 = Array(8).fill(TESTIMONIALS.slice(3)).flat();
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="w-80 flex-none rounded-2xl border border-brand-border bg-brand-bg-elevated p-6 shadow-sm transition-colors hover:border-brand-accent-gold/40">
-      <span className="font-heading text-5xl leading-none text-brand-accent-gold/40">&ldquo;</span>
-      <p className="mt-1 font-body text-sm leading-relaxed text-brand-text-secondary">
+    <div className="w-72 sm:w-80 flex-none rounded-2xl border border-brand-border bg-brand-bg-elevated p-5 sm:p-6 shadow-sm transition-colors hover:border-brand-accent-gold/40">
+      <span className="font-heading text-4xl sm:text-5xl leading-none text-brand-accent-gold/40">&ldquo;</span>
+      <p className="mt-1 font-body text-xs sm:text-sm leading-relaxed text-brand-text-secondary">
         {testimonial.quote}
       </p>
-      <div className="mt-6 flex items-center justify-between border-t border-brand-border pt-4">
-        <p className="font-body text-sm font-semibold text-brand-text-primary">
+      <div className="mt-5 flex items-center justify-between border-t border-brand-border pt-4 sm:mt-6">
+        <p className="font-body text-xs sm:text-sm font-semibold text-brand-text-primary">
           {testimonial.author}
         </p>
-        <p className="font-body text-xs text-brand-text-secondary/70">{testimonial.location}</p>
+        <p className="font-body text-[10px] sm:text-xs text-brand-text-secondary/70">{testimonial.location}</p>
       </div>
     </div>
   );
@@ -105,7 +106,7 @@ export function TestimonialsSection() {
         aria-hidden={ANIMATIONS_ENABLED}
       >
         {row1.map((t, i) => (
-          <TestimonialCard key={`${t.id}-${i}`} testimonial={t} />
+          <TestimonialCard key={`row1-${t.id}-${i}`} testimonial={t} />
         ))}
       </div>
 
@@ -114,7 +115,7 @@ export function TestimonialsSection() {
         aria-hidden={ANIMATIONS_ENABLED}
       >
         {row2.map((t, i) => (
-          <TestimonialCard key={`${t.id}-${i}`} testimonial={t} />
+          <TestimonialCard key={`row2-${t.id}-${i}`} testimonial={t} />
         ))}
       </div>
 

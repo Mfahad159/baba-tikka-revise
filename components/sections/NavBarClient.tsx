@@ -13,7 +13,7 @@ import { useCart } from '@/hooks/useCart';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/#home', sectionId: 'home' },
-  { label: 'Our Story', href: '/#story', sectionId: 'story' },
+  { label: 'Our Story', href: '/story' },
   { label: 'Menu', href: '/menu', sectionId: 'menu' },
   { label: 'Testimonials', href: '/#testimonials', sectionId: 'testimonials' },
   { label: 'Branches', href: '/#branches', sectionId: 'branches' },
@@ -36,7 +36,7 @@ export function NavBarClient() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = NAV_LINKS.map((l) => l.sectionId).filter(Boolean);
+    const sectionIds = NAV_LINKS.map((l) => l.sectionId).filter((id): id is string => !!id);
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
