@@ -1,11 +1,20 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import * as animejs from 'animejs';
-const anime = (animejs as any).default || animejs;
+import { animate } from 'animejs';
 
 const BRAND_NAME = "Baba Tikkah";
 const BRAND_SLOGAN = "The Name of Taste";
+
+const LOADER_TIMING = {
+  brandNameDuration:  1200,  // was 2400
+  brandNameDelay:     200,   // was 700
+  sloganDuration:     500,   // was 900
+  sloganDelay:        1400,  // was 3200
+  totalDuration:      2200,  // was 4600
+  fadeDuration:       500,   // was 800
+  skipAppearAt:       800,   // was 1500
+};
 
 interface BabaTikkahLoaderProps {
   onComplete?: () => void;
@@ -55,48 +64,45 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
       lineEl.style.opacity = '0';
 
       // 2. TIMERS
-      // Show skip button after 1500ms
+      // Show skip button according to configuration
       timeoutsRef.current.push(
         setTimeout(() => {
           if (!cancelled) setShowSkip(true);
-        }, 1500)
+        }, LOADER_TIMING.skipAppearAt)
       );
 
       // 3. SEQUENCE
       // Animate Stroke
-      const anim1 = anime({
-        targets: nameEl,
+      const anim1 = animate(nameEl, {
         strokeDashoffset: [nameLength, 0],
-        duration: 2400,
-        delay: 700,
-        easing: 'easeInOutSine',
-        complete: () => {
+        duration: LOADER_TIMING.brandNameDuration,
+        delay: LOADER_TIMING.brandNameDelay,
+        ease: 'inOutSine',
+        onComplete: () => {
           if (!cancelled) {
             nameEl.style.transition = 'fill-opacity 0.8s ease, filter 0.8s ease';
             nameEl.style.fillOpacity = '1';
-            nameEl.style.filter = 'drop-shadow(0 0 16px rgba(200, 150, 62, 0.5))'; // brand.accent.gold glow
+            nameEl.style.filter = 'drop-shadow(0 0 16px rgba(200, 150, 62, 0.5))';
           }
         },
       });
       animsRef.current.push(anim1);
 
       // Animate the minimal connecting line
-      const animLine = anime({
-        targets: lineEl,
+      const animLine = animate(lineEl, {
         opacity: [0, 0.15],
-        duration: 800,
-        delay: 2800,
-        easing: 'easeOutQuad',
+        duration: LOADER_TIMING.sloganDuration,
+        delay: LOADER_TIMING.sloganDelay - 400, // Trigger just slightly before the slogan fires
+        ease: 'outQuad',
       });
       animsRef.current.push(animLine);
 
       // Animate Slogan fading in
-      const anim2 = anime({
-        targets: sloganEl,
+      const anim2 = animate(sloganEl, {
         opacity: [0, 0.7],
-        duration: 900,
-        delay: 3200,
-        easing: 'easeOutCubic',
+        duration: LOADER_TIMING.sloganDuration,
+        delay: LOADER_TIMING.sloganDelay,
+        ease: 'outCubic',
       });
       animsRef.current.push(anim2);
 
@@ -108,10 +114,10 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
             timeoutsRef.current.push(
               setTimeout(() => {
                 if (!cancelled && onComplete) onComplete();
-              }, 800) // matches the fade-out CSS duration
+              }, LOADER_TIMING.fadeDuration)
             );
           }
-        }, 4600)
+        }, LOADER_TIMING.totalDuration)
       );
     };
 
@@ -129,7 +135,7 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
     setFadingOut(true);
     setTimeout(() => {
       if (onComplete) onComplete();
-    }, 800);
+    }, LOADER_TIMING.fadeDuration);
   };
 
   return (

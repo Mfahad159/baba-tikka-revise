@@ -7,11 +7,10 @@ export function ClientBootLoader() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    // TODO: skip loader if 'baba-tikkah-visited' key exists in localStorage
-    // Uncomment this logic when moving to production so return visitors don't see it every time
-    // if (localStorage.getItem('baba-tikkah-visited')) {
-    //   setLoaded(true);
-    // }
+    // Only fire loader if untouched in localStorage
+    if (localStorage.getItem('baba-tikkah-visited')) {
+      setLoaded(true);
+    }
   }, []);
 
   // Return absolutely nothing (transparently) once the sequence finishes.
@@ -21,7 +20,7 @@ export function ClientBootLoader() {
   return (
     <BabaTikkahLoader
       onComplete={() => {
-        // localStorage.setItem('baba-tikkah-visited', 'true');
+        localStorage.setItem('baba-tikkah-visited', 'true');
         setLoaded(true);
       }}
     />

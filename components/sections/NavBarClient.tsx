@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
@@ -25,6 +26,8 @@ export function NavBarClient() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
   const { totalItems } = useCart();
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -87,7 +90,10 @@ export function NavBarClient() {
 
             <nav className="hidden items-center gap-1 md:flex">
               {NAV_LINKS.map((link) => {
-                const isActive = activeSection === link.sectionId;
+                const isActive = isHomePage
+                  ? activeSection === link.sectionId
+                  : pathname === link.href || pathname.startsWith(`${link.href}/`);
+                  
                 return (
                   <Link
                     key={link.href}
@@ -179,7 +185,10 @@ export function NavBarClient() {
 
               <nav className="flex flex-col gap-5">
                 {NAV_LINKS.map((link) => {
-                  const isActive = activeSection === link.sectionId;
+                  const isActive = isHomePage
+                    ? activeSection === link.sectionId
+                    : pathname === link.href || pathname.startsWith(`${link.href}/`);
+                    
                   return (
                     <Link
                       key={link.href}
