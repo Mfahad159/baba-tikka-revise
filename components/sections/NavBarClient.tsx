@@ -13,7 +13,7 @@ import { useCart } from '@/hooks/useCart';
 const NAV_LINKS = [
   { label: 'Home', href: '/#home', sectionId: 'home' },
   { label: 'Our Story', href: '/#story', sectionId: 'story' },
-  { label: 'Menu', href: '/#menu', sectionId: 'menu' },
+  { label: 'Menu', href: '/menu', sectionId: 'menu' },
   { label: 'Testimonials', href: '/#testimonials', sectionId: 'testimonials' },
   { label: 'Branches', href: '/#branches', sectionId: 'branches' },
 ];

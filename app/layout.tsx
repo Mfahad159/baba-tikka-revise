@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { headingFont, bodyFont } from '@/lib/fonts';
+import { Footer } from '@/components/sections/Footer';
 import './globals.css';
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -53,8 +54,9 @@ export default function RootLayout({
       lang="en"
       className={`${headingFont.variable} ${bodyFont.variable}`}
     >
-      <body className="bg-brand-cream font-body text-brand-charcoal antialiased">
+      <body className="flex min-h-[100svh] flex-col bg-brand-bg-primary font-body text-brand-text-primary antialiased">
         {children}
+        <Footer />
       </body>
     </html>
   );

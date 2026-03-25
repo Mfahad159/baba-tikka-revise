@@ -74,7 +74,7 @@ export default function CartPage() {
             Looks like you haven&apos;t added any dishes yet. Start exploring our rich menu.
           </p>
           <Link
-            href="/#menu"
+            href="/menu"
             className="mt-8 inline-flex items-center gap-2 rounded-full border border-brand-accent-gold/50 bg-brand-accent-gold/5 px-6 py-3 font-body text-sm font-medium text-brand-accent-gold transition-colors hover:bg-brand-accent-gold hover:text-brand-text-primary"
           >
             Explore Menu
@@ -96,7 +96,7 @@ export default function CartPage() {
         <div className="mb-8 flex items-center justify-between">
           <h1 className="font-heading text-3xl font-bold text-brand-text-primary">Your Cart</h1>
           <Link
-            href="/#menu"
+            href="/menu"
             className="inline-flex items-center gap-2 rounded-full border border-brand-accent-gold/40 px-4 py-2 font-body text-xs sm:text-sm font-medium text-brand-accent-gold transition-all hover:bg-brand-accent-gold/10 active:scale-95"
           >
             <ArrowLeft size={14} />

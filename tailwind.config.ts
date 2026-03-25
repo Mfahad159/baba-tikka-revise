@@ -36,6 +36,10 @@ const config: Config = {
       // VISUAL CHOICE: 40s duration — slow enough to read, fast enough to feel alive.
       // Adjust the seconds values to speed up or slow down the scroll.
       keyframes: {
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
         "marquee-left": {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
@@ -46,6 +50,7 @@ const config: Config = {
         },
       },
       animation: {
+        shimmer: "shimmer 2.5s linear infinite",
         "marquee-left": "marquee-left 40s linear infinite",
         "marquee-right": "marquee-right 40s linear infinite",
       },

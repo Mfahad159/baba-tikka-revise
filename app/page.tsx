@@ -8,10 +8,12 @@ import { EditorialGallery } from '@/components/sections/EditorialGallery';
 import { MenuHighlights } from '@/components/sections/MenuHighlights';
 import { BranchLocator } from '@/components/sections/BranchLocator';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
+import { ClientBootLoader } from '@/components/ClientBootLoader';
 
 export default function HomePage() {
   return (
     <>
+      <ClientBootLoader />
       <NavBar />
       <main>
         {/* Section IDs must match NavBarClient NAV_LINKS sectionId values */}
