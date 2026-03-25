@@ -11,11 +11,11 @@ import { Logo } from '@/components/ui/Logo';
 import { useCart } from '@/hooks/useCart';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#home', sectionId: 'home' },
-  { label: 'Our Story', href: '#story', sectionId: 'story' },
-  { label: 'Menu', href: '#menu', sectionId: 'menu' },
-  { label: 'Testimonials', href: '#testimonials', sectionId: 'testimonials' },
-  { label: 'Branches', href: '#branches', sectionId: 'branches' },
+  { label: 'Home', href: '/#home', sectionId: 'home' },
+  { label: 'Our Story', href: '/#story', sectionId: 'story' },
+  { label: 'Menu', href: '/#menu', sectionId: 'menu' },
+  { label: 'Testimonials', href: '/#testimonials', sectionId: 'testimonials' },
+  { label: 'Branches', href: '/#branches', sectionId: 'branches' },
 ];
 
 const SCROLL_THRESHOLD = 40;
@@ -195,7 +195,7 @@ export function NavBarClient() {
                   );
                 })}
                 <Link
-                  href="#reservations"
+                  href="/#reservations"
                   onClick={close}
                   className="mt-4 rounded-full bg-brand-accent-gold px-6 py-3 text-center font-body text-sm font-semibold text-brand-text-primary shadow-md"
                 >

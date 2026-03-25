@@ -33,8 +33,8 @@ const HERO_COPY = {
   headline: ['Taste, Tradition &', 'True Authenticity'],
   subtext:
     'Embark on an unforgettable culinary journey at Baba Tikkah — where every dish tells a story of 25 years of perfection.',
-  cta: { label: 'Explore Menu', href: '#menu' },
-  book: { label: 'Book Reservation', href: '#reservations' },
+  cta: { label: 'Explore Menu', href: '/#menu' },
+  book: { label: 'Book Reservation', href: '/#reservations' },
 };
 
 const BOTTOM_DISHES = [
@@ -171,7 +171,7 @@ export function HeroSection() {
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <div className="relative h-[300px] w-[300px] sm:h-[400px] sm:w-[400px] lg:h-[520px] lg:w-[520px]">
+          <div className="relative aspect-square w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[520px]">
             <AnimatePresence mode="sync">
               <motion.div
                 key={current}
@@ -193,10 +193,10 @@ export function HeroSection() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_#0C0C0C_85%)]" />
           </div>
 
-          <button onClick={prev} aria-label="Previous dish" className="absolute left-0 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full border border-brand-border bg-brand-text-primary/5 text-brand-text-secondary transition hover:border-brand-accent-gold/50 hover:text-brand-accent-gold">
+          <button onClick={prev} aria-label="Previous dish" className="absolute left-0 top-1/2 -translate-y-1/2 hidden sm:flex h-9 w-9 items-center justify-center rounded-full border border-brand-border bg-brand-text-primary/5 text-brand-text-secondary transition hover:border-brand-accent-gold/50 hover:text-brand-accent-gold">
             <ChevronLeft size={16} />
           </button>
-          <button onClick={next} aria-label="Next dish" className="absolute right-0 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-brand-accent-gold text-brand-text-primary shadow-lg shadow-brand-accent-gold/40 transition hover:bg-[#976d29]">
+          <button onClick={next} aria-label="Next dish" className="absolute right-0 top-1/2 -translate-y-1/2 hidden sm:flex h-9 w-9 items-center justify-center rounded-full bg-brand-accent-gold text-brand-text-primary shadow-lg shadow-brand-accent-gold/40 transition hover:bg-[#976d29]">
             <ChevronRight size={16} />
           </button>
         </div>
