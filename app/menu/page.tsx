@@ -77,10 +77,35 @@ export default function MenuPage() {
           </p>
         </motion.div>
 
-        {/* Menu Categories */}
+        {/* Menu Categories Jump-Links */}
+        <motion.div {...childProps} className="sticky top-[88px] z-30 -mx-4 mb-12 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/90 px-4 py-4 backdrop-blur-md sm:mx-0 sm:justify-center sm:px-0 scrollbar-hide">
+          {MENU_CATEGORIES.map((category) => {
+            const id = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            return (
+              <button
+                key={id}
+                onClick={() => {
+                  const el = document.getElementById(id);
+                  if (el) {
+                    const y = el.getBoundingClientRect().top + window.scrollY - 160;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }}
+                className="whitespace-nowrap rounded-full border border-brand-border bg-brand-bg-secondary px-5 py-2 font-body text-sm font-medium text-brand-text-secondary transition-all hover:border-brand-accent-gold/50 hover:text-brand-accent-gold"
+              >
+                {category.name}
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* Menu Categories Grid */}
         <div className="space-y-24">
-          {MENU_CATEGORIES.map((category) => (
+          {MENU_CATEGORIES.map((category) => {
+            const sectionId = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            return (
             <motion.section 
+              id={sectionId}
               key={category.name}
               initial="hidden"
               whileInView="visible"
@@ -110,7 +135,8 @@ export default function MenuPage() {
                 ))}
               </div>
             </motion.section>
-          ))}
+            );
+          })}
         </div>
 
       </motion.div>

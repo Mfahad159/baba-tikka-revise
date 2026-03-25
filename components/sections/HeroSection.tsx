@@ -11,13 +11,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { ANIMATIONS_ENABLED } from '@/lib/animations';
-import { DishCard } from '@/components/ui/DishCard';
-
-const PRICES: Record<string, number> = {
-  tikka: 0,
-  karahi: 0,
-  sajji: 0,
-};
 
 const SLIDE_IMAGES = [
   '/hero-image-slideshow/1.webp',
@@ -37,29 +30,6 @@ const HERO_COPY = {
   book: { label: 'Book Reservation', href: '/#reservations' },
 };
 
-const BOTTOM_DISHES = [
-  {
-    id: 'tikka',
-    name: 'Tikka Kabab',
-    desc: 'Char-grilled, secret spice marinade',
-    rating: 4.9,
-    image: '/images/imgi_43_TikkahKabab.jpg',
-  },
-  {
-    id: 'karahi',
-    name: 'Chicken Karahi',
-    desc: 'Slow-cooked, hand-ground masala',
-    rating: 4.8,
-    image: '/images/imgi_33_ChickenWhiteKarahi.jpg',
-  },
-  {
-    id: 'sajji',
-    name: 'Sajji Special',
-    desc: 'Live charcoal, Balochi herbs',
-    rating: 4.9,
-    image: '/images/imgi_89_SajjiDeal.png',
-  },
-];
 
 const CUSTOMER_AVATARS = [
   { color: '#C8963E', label: 'A' },
@@ -112,7 +82,7 @@ export function HeroSection() {
         </Link>
       </motion.div>
 
-      <div className="relative mx-auto flex min-h-[calc(100svh-5rem-120px)] max-w-7xl flex-col items-start px-6 sm:px-8 lg:flex-row lg:items-center lg:px-12">
+      <div className="relative mx-auto flex min-h-[calc(100svh-5rem)] max-w-7xl flex-col items-start px-6 sm:px-8 lg:flex-row lg:items-center lg:px-12 pb-16">
         {/* LEFT: text block */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center pt-12 text-center lg:items-start lg:pt-0 lg:text-left">
           <motion.h1
@@ -202,29 +172,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom dish strip */}
-      <motion.div
-        {...(ANIMATIONS_ENABLED ? { initial: { opacity: 0, y: 32 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.55, duration: 0.6, ease: EASE_OUT } } : {})}
-        className="relative z-10 mx-auto max-w-7xl px-6 pb-8 sm:px-8 lg:px-12"
-      >
-        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 md:grid md:grid-cols-3">
-          {BOTTOM_DISHES.map((dish, i) => (
-            <motion.div
-              key={dish.id}
-              className="flex min-w-0"
-              {...(ANIMATIONS_ENABLED
-                ? {
-                    initial: { opacity: 0, y: 15 },
-                    animate: { opacity: 1, y: 0 },
-                    transition: { duration: 0.5, delay: 0.6 + i * 0.1 },
-                  }
-                : {})}
-            >
-              <DishCard dish={{ ...dish, price: PRICES[dish.id] ?? 0 }} />
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
     </section>
   );
 }

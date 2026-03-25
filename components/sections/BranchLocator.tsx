@@ -9,48 +9,39 @@ import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/anim
 interface Branch {
   id: string;
   name: string;
-  area: string;
   address: string;
-  phone: string;
-  hours: {
-    weekday: string;
-    weekend: string;
-  };
+  delivery: string[];
+  reservation: string[];
 }
 
 const BRANCHES: Branch[] = [
   {
-    id: 'branch-gulberg',
-    name: 'Gulberg Branch',
-    area: 'Gulberg, Lahore',
-    address: 'Street address, Gulberg III, Lahore',
-    phone: '+92 300 0000000',
-    hours: {
-      weekday: 'Mon–Fri: 12pm – 12am',
-      weekend: 'Sat–Sun: 12pm – 2am',
-    },
+    id: 'd-ground',
+    name: 'D-Ground Branch',
+    address: '111-B Peoples Colony#1 D-Ground Faisalabad',
+    delivery: ['041-111-161616', '0304-111-1616'],
+    reservation: ['0341-1118889', '0321-6650956'],
   },
   {
-    id: 'branch-dha',
-    name: 'DHA Branch',
-    area: 'DHA, Lahore',
-    address: 'Street address, DHA Phase 5, Lahore',
-    phone: '+92 300 0000001',
-    hours: {
-      weekday: 'Mon–Fri: 12pm – 12am',
-      weekend: 'Sat–Sun: 12pm – 2am',
-    },
+    id: 'kohinoor',
+    name: 'Kohinoor Branch',
+    address: 'P-131 Main Boulevard Kohinoor City Faisalabad',
+    delivery: ['041-111-161616', '0304-111-1616'],
+    reservation: ['0341-1119990', '0341-5888885'],
   },
   {
-    id: 'branch-johar',
-    name: 'Johar Town Branch',
-    area: 'Johar Town, Lahore',
-    address: 'Street address, Johar Town, Lahore',
-    phone: '+92 300 0000002',
-    hours: {
-      weekday: 'Mon–Fri: 12pm – 12am',
-      weekend: 'Sat–Sun: 12pm – 2am',
-    },
+    id: 'canal-road',
+    name: 'Canal Road Branch',
+    address: 'East Canal Road 204-Rb Near Raza Garden Faisalabad',
+    delivery: ['041-111-161616', '0304-111-1616'],
+    reservation: ['0345-9668335'],
+  },
+  {
+    id: 'fawara-chowk',
+    name: 'Fawara Branch',
+    address: 'Near Fawara Chowk Ground Faisalabad',
+    delivery: ['0301-6061313', '0321-1179222'],
+    reservation: ['0321-7693193'],
   },
 ];
 
@@ -81,43 +72,57 @@ export function BranchLocator() {
             <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
           </div>
           <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary">
-            Three locations across Lahore — always close to you.
+            Four premium locations across Faisalabad — always close to you.
           </p>
         </motion.div>
 
         {/* Branch cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {BRANCHES.map((branch) => (
             <motion.div
               {...childProps}
               key={branch.id}
-              className="group rounded-2xl border border-brand-border bg-brand-bg-elevated p-8 transition-colors hover:border-brand-accent-gold/40"
+              className="group flex flex-col rounded-2xl border border-brand-border bg-brand-bg-elevated p-6 sm:p-8 transition-colors hover:border-brand-accent-gold/40"
             >
-              <span className="mb-5 inline-block h-2 w-2 rounded-full bg-brand-accent-gold transition-transform group-hover:scale-125" />
+              <span className="mb-4 inline-block h-2 w-2 rounded-full bg-brand-accent-gold transition-transform group-hover:scale-125" />
 
-              <h3 className="font-heading text-2xl font-semibold text-brand-text-primary">
+              <h3 className="font-heading text-xl font-semibold text-brand-text-primary">
                 {branch.name}
               </h3>
-              <p className="mt-1 font-body text-sm font-medium text-brand-accent-gold">
-                {branch.area}
-              </p>
-
-              <div className="mt-5 space-y-2 font-body text-sm text-brand-text-secondary">
-                <p>{branch.address}</p>
-                <p>{branch.phone}</p>
+              
+              <div className="mt-3 font-body text-xs text-brand-text-secondary">
+                <p className="leading-relaxed">{branch.address}</p>
               </div>
 
-              {/* Hours */}
-              <div className="mt-6 rounded-xl border border-brand-border/50 bg-brand-bg-secondary p-4 font-body text-xs text-brand-text-secondary">
-                <p className="flex justify-between">
-                  <span>Mon–Fri</span>
-                  <span className="text-brand-text-primary">12pm – 12am</span>
-                </p>
-                <div className="my-2 h-px w-full bg-brand-border/50" />
-                <p className="flex justify-between">
-                  <span>Sat–Sun</span>
-                  <span className="text-brand-text-primary">12pm – 2am</span>
-                </p>
+              {/* Dynamic Telephone Blocks */}
+              <div className="mt-6 flex-1 space-y-4">
+                {/* Delivery */}
+                <div className="rounded-xl border border-brand-border/30 bg-brand-bg-secondary p-3.5">
+                  <p className="mb-2 font-body text-[10px] font-bold uppercase tracking-widest text-brand-accent-gold">
+                    Delivery
+                  </p>
+                  <div className="flex flex-col gap-1.5 font-body text-sm font-medium text-brand-text-primary">
+                    {branch.delivery.map((phone, idx) => (
+                      <a key={idx} href={`tel:${phone.replace(/-/g, '')}`} className="transition-colors hover:text-brand-accent-gold">
+                        {phone}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Reservation */}
+                <div className="rounded-xl border border-brand-border/30 bg-brand-bg-secondary p-3.5">
+                  <p className="mb-2 font-body text-[10px] font-bold uppercase tracking-widest text-brand-accent-gold">
+                    Reservation
+                  </p>
+                  <div className="flex flex-col gap-1.5 font-body text-sm font-medium text-brand-text-primary">
+                    {branch.reservation.map((phone, idx) => (
+                      <a key={idx} href={`tel:${phone.replace(/-/g, '')}`} className="transition-colors hover:text-brand-accent-gold">
+                        {phone}
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Get Directions */}
@@ -127,7 +132,7 @@ export function BranchLocator() {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-1 font-body text-xs font-semibold text-brand-accent-gold/70 transition-colors hover:text-brand-accent-gold"
               >
-                Get Directions →
+                Live Location →
               </a>
             </motion.div>
           ))}
