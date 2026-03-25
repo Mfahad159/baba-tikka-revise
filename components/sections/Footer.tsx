@@ -92,7 +92,7 @@ export function Footer() {
           <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left">
             <Logo className="text-brand-accent-gold" />
             <p className="mt-4 font-body text-sm font-medium italic text-brand-text-secondary">
-              "{FOOTER_CONTENT.tagline}"
+              &quot;{FOOTER_CONTENT.tagline}&quot;
             </p>
             <div className="mt-5 h-[1px] w-16 bg-brand-accent-gold/40" />
             <div className="mt-6 flex h-[26px] items-center justify-center rounded-full border border-brand-accent-gold text-brand-accent-gold bg-brand-accent-gold/5 px-4 font-body text-[10px] font-bold tracking-widest uppercase">

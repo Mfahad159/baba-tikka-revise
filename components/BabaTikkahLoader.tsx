@@ -29,7 +29,7 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
   const sloganRef = useRef<SVGTextElement>(null);
   const lineRef = useRef<SVGLineElement>(null);
 
-  const animsRef = useRef<any[]>([]);
+  const animsRef = useRef<ReturnType<typeof animate>[]>([]);
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
@@ -49,7 +49,9 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
       let nameLength = 0;
       try {
         nameLength = nameEl.getComputedTextLength();
-      } catch (e) {}
+      } catch {
+        // Fallback handled below
+      }
       
       // Fallback if measurement fails or returns 0
       if (nameLength <= 10) nameLength = 950;
@@ -126,7 +128,9 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
     // STRICT CLEANUP exactly matching the reference architecture
     return () => {
       cancelled = true;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       timeoutsRef.current.forEach(clearTimeout);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       animsRef.current.forEach((a) => a.pause());
     };
   }, [onComplete]);

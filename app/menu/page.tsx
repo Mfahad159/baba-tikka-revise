@@ -79,7 +79,7 @@ export default function MenuPage() {
 
         {/* Menu Categories */}
         <div className="space-y-24">
-          {MENU_CATEGORIES.map((category, idx) => (
+          {MENU_CATEGORIES.map((category) => (
             <motion.section 
               key={category.name}
               initial="hidden"
