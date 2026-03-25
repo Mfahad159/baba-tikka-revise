@@ -12,22 +12,14 @@
     @apply scroll-smooth;
   }
   :root {
-    --brand-charcoal: #1c1c1c;
-    --brand-charcoal-light: #2e2e2e;
-    --brand-charcoal-dark: #0f0f0f;
-
-    --brand-cream: #faf6ef;
-    --brand-cream-light: #fffdf9;
-    --brand-cream-dark: #efe9df;
-
-    --brand-gold: #c8963e;
-    --brand-gold-light: #e0b96a;
-    --brand-gold-dark: #9e7020;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
   }
 
   /* Base typography defaults */
   body {
     font-family: var(--font-body), system-ui, sans-serif;
+    @apply bg-brand-bg-primary text-brand-text-primary;
   }
 
   h1,

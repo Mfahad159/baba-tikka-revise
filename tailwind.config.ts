@@ -9,24 +9,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // TODO: Replace placeholders with exact brand hex values once approved
-        // Token names: brand.charcoal, brand.cream, brand.gold — revisit if naming convention changes
         brand: {
-          charcoal: {
-            DEFAULT: "#1C1C1C", // Deep charcoal — primary background / text on light
-            light: "#2E2E2E",
-            dark: "#0F0F0F",
+          bg: {
+            primary: "#0C0C0C",
+            secondary: "#141414",
+            elevated: "#1C1C1C",
           },
-          cream: {
-            DEFAULT: "#FAF6EF", // Warm cream — primary background on light surfaces
-            light: "#FFFDF9",
-            dark: "#EFE9DF",
+          accent: {
+            gold: "#C8963E",
+            goldMuted: "rgba(200, 150, 62, 0.15)",
           },
-          gold: {
-            DEFAULT: "#C8963E", // Warm gold accent — CTAs, highlights, borders
-            light: "#E0B96A",
-            dark: "#9E7020",
+          text: {
+            primary: "#FFFFFF",
+            secondary: "rgba(255, 255, 255, 0.6)",
+            accent: "#C8963E",
           },
+          border: "rgba(255, 255, 255, 0.1)",
         },
       },
       fontFamily: {
