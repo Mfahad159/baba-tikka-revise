@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────────────────────────
+   Brand color tokens as CSS variables — mirroring tailwind.config.ts values.
+   Update these alongside tailwind.config.ts when final hex values are chosen.
+   TODO: Revisit these values once exact brand colors are confirmed.
+   ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --brand-charcoal: #1c1c1c;
+    --brand-charcoal-light: #2e2e2e;
+    --brand-charcoal-dark: #0f0f0f;
+
+    --brand-cream: #faf6ef;
+    --brand-cream-light: #fffdf9;
+    --brand-cream-dark: #efe9df;
+
+    --brand-gold: #c8963e;
+    --brand-gold-light: #e0b96a;
+    --brand-gold-dark: #9e7020;
+  }
+
+  /* Base typography defaults */
+  body {
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), Georgia, serif;
+  }
+}
