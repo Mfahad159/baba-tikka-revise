@@ -18,37 +18,37 @@ const TESTIMONIALS: Testimonial[] = [
     id: 't1',
     quote: 'The tikka here is absolutely unmatched — crispy outside, juicy inside. We drive from the other side of town just for this.',
     author: 'Fatima R.',
-    location: 'DHA, Lahore',
+    location: 'Verified Diner',
   },
   {
     id: 't2',
     quote: "Best karahi I've had in years. The white karahi especially has that home-cooked depth that most restaurants can't replicate.",
     author: 'Ahmed K.',
-    location: 'Gulberg, Lahore',
+    location: 'Local Guide',
   },
   {
     id: 't3',
     quote: 'We ordered the Sajji Deal for a family gathering and it was the star of the evening. Everyone kept asking where we got it from.',
     author: 'Sara M.',
-    location: 'Johar Town, Lahore',
+    location: 'Family Diner',
   },
   {
     id: 't4',
     quote: 'The ambiance is warm, the service is quick, and the Mutton Champ melts in your mouth. This is our go-to for special occasions.',
     author: 'Usman T.',
-    location: 'Model Town, Lahore',
+    location: 'Food Critic',
   },
   {
     id: 't5',
     quote: "Dynamite Prawns are dangerously addictive. Never thought I'd find seafood this good at a Pakistani grill restaurant.",
     author: 'Nadia H.',
-    location: 'Bahria Town, Lahore',
+    location: 'First Time Guest',
   },
   {
     id: 't6',
-    quote: 'Consistent quality across all three branches — rare for a restaurant to maintain this standard. Truly a Lahore gem.',
+    quote: 'Consistent quality across all branches — rare for a restaurant to maintain this standard. Truly a culinary gem.',
     author: 'Bilal A.',
-    location: 'PIA Housing, Lahore',
+    location: 'Regular Customer',
   },
 ];
 
@@ -94,7 +94,7 @@ export function TestimonialsSection() {
           </p>
           <div className="relative inline-block">
             <h2 className="font-heading text-4xl font-semibold text-brand-text-primary lg:text-5xl">
-              Loved by Lahore
+              Loved by Everyone
             </h2>
             <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
           </div>
