@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { formatPKR } from '@/lib/utils';
 import { ANIMATIONS_ENABLED } from '@/lib/animations';
@@ -51,42 +51,34 @@ export function FloatingCartBar() {
           exit={ANIMATIONS_ENABLED ? { y: 100, opacity: 0 } : undefined}
           transition={{ duration: 0.3, ease: 'easeOut' }}
           onClick={() => router.push('/cart')}
-          className={`fixed bottom-4 left-4 right-4 mx-auto max-w-screen-md z-50 cursor-pointer overflow-hidden rounded-2xl border border-brand-accent-gold/20 pb-[env(safe-area-inset-bottom)] transition-all duration-300 hover:brightness-110 active:scale-[0.98] ${
-            pulse ? 'border-brand-accent-gold shadow-[0_4px_30px_rgba(200,150,62,0.3)]' : 'shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
-          } bg-brand-bg-primary/95 backdrop-blur-md`}
+          className={`fixed bottom-0 left-0 right-0 z-50 cursor-pointer rounded-t-[28px] pb-[env(safe-area-inset-bottom)] transition-all duration-300 hover:brightness-105 active:scale-[0.99] ${
+            pulse ? 'shadow-[0_-8px_30px_rgba(200,150,62,0.15)]' : 'shadow-[0_-8px_24px_rgba(0,0,0,0.5)]'
+          } bg-brand-bg-elevated border-t border-brand-border/30`}
         >
-          <div className="flex w-full items-center justify-between px-5 py-3 sm:px-6">
+          <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-3 px-5 py-3 sm:px-6">
             
-            {/* Left: Item Count Badge */}
-            <div className="flex w-[80px] shrink-0 items-center justify-start">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-accent-gold font-body text-xs font-bold text-brand-bg-primary shadow-sm sm:h-8 sm:w-8 sm:text-sm">
-                <AnimatePresence mode="popLayout">
-                  <motion.span
-                    key={totalItems}
-                    initial={ANIMATIONS_ENABLED ? { y: 15, opacity: 0 } : undefined}
-                    animate={ANIMATIONS_ENABLED ? { y: 0, opacity: 1 } : undefined}
-                    exit={ANIMATIONS_ENABLED ? { y: -15, opacity: 0, position: 'absolute' } : undefined}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {totalItems}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
+            {/* Left: Item Count Circle Badge */}
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-accent-gold shadow-md sm:h-12 sm:w-12">
+              <AnimatePresence mode="popLayout">
+                <motion.span
+                  key={totalItems}
+                  initial={ANIMATIONS_ENABLED ? { y: 15, opacity: 0 } : undefined}
+                  animate={ANIMATIONS_ENABLED ? { y: 0, opacity: 1 } : undefined}
+                  exit={ANIMATIONS_ENABLED ? { y: -15, opacity: 0, position: 'absolute' } : undefined}
+                  transition={{ duration: 0.2 }}
+                  className="font-body text-base font-bold text-brand-bg-primary"
+                >
+                  {totalItems}
+                </motion.span>
+              </AnimatePresence>
             </div>
 
-            {/* Center: CTA Text */}
-            <div className="flex flex-1 items-center justify-center gap-2">
-              <ShoppingCart size={16} className="text-brand-text-primary" />
-              <span className="font-heading text-base font-medium text-brand-text-primary sm:text-lg">
-                Go to Cart
+            {/* Right: Elongated Action Pill */}
+            <div className="flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-accent-gold py-2.5 shadow-md sm:py-3">
+              <span className="font-heading text-base font-semibold tracking-wide text-brand-bg-primary sm:text-lg">
+                Cart {totalPrice > 0 && `— ${formatPKR(totalPrice)}`}
               </span>
-            </div>
-
-            {/* Right: Total Price */}
-            <div className="flex w-[80px] shrink-0 items-center justify-end text-right">
-              <span className="font-body text-sm font-bold tracking-wide text-brand-accent-gold sm:text-base">
-                {formatPKR(totalPrice)}
-              </span>
+              <ArrowRight size={18} strokeWidth={2.5} className="ml-1 text-brand-bg-primary" />
             </div>
             
           </div>
