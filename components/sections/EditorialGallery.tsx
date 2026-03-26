@@ -39,18 +39,18 @@ export function EditorialGallery() {
   const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
 
   return (
-    <section className="relative overflow-hidden bg-brand-bg-primary px-6 py-16 sm:px-8 lg:px-12 lg:py-28">
+    <section className="relative overflow-hidden bg-brand-bg-primary dark:bg-brand-bg-primary-dark transition-colors duration-300 px-6 py-16 sm:px-8 lg:px-12 lg:py-28">
       <motion.div {...containerProps} className="relative z-10 mx-auto max-w-7xl">
         {/* Header */}
         <motion.div {...childProps} className="mb-12 text-center md:mb-16">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold">
+          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             Culinary Excellence
           </p>
           <div className="relative inline-block">
-            <h2 className="font-heading text-3xl font-bold text-brand-text-primary sm:text-4xl lg:text-5xl">
+            <h2 className="font-heading text-3xl font-bold text-brand-text-primary dark:text-brand-text-primary-dark sm:text-4xl lg:text-5xl">
               A Symphony of Flavours
             </h2>
-            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
+            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
           </div>
         </motion.div>
 
@@ -60,7 +60,7 @@ export function EditorialGallery() {
             <motion.div
               key={i}
               {...childProps}
-              className={`group relative overflow-hidden rounded-3xl bg-brand-bg-secondary ${img.className} ${
+              className={`group relative overflow-hidden rounded-3xl bg-brand-bg-secondary dark:bg-brand-bg-secondary-dark ${img.className} ${
                 img.className.includes('md:row-span-2') ? 'aspect-square md:aspect-auto' : 'aspect-[4/3] md:aspect-auto'
               }`}
             >
@@ -73,14 +73,14 @@ export function EditorialGallery() {
               />
               
               {/* Premium Inner Shadow Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-primary/90 via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-primary/90 dark:from-brand-bg-primary-dark/90 via-transparent to-transparent opacity-80" />
               
               {/* Inner Label */}
               <div className="absolute bottom-0 left-0 p-6 sm:p-8">
-                <p className="font-heading text-xl font-semibold tracking-wide text-brand-text-primary md:text-2xl">
+                <p className="font-heading text-xl font-semibold tracking-wide text-brand-text-primary dark:text-brand-text-primary-dark md:text-2xl">
                   {img.label}
                 </p>
-                <div className="mt-3 h-[2px] w-8 bg-brand-accent-gold transition-all duration-500 group-hover:w-16" />
+                <div className="mt-3 h-[2px] w-8 bg-brand-accent-gold dark:bg-brand-accent-gold-dark transition-all duration-500 group-hover:w-16" />
               </div>
             </motion.div>
           ))}

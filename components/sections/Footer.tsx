@@ -75,9 +75,9 @@ export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="relative mt-auto overflow-hidden bg-brand-bg-primary pt-16 sm:pt-24 shrink-0 border-t border-brand-accent-gold/20">
+    <footer className="relative mt-auto overflow-hidden bg-brand-bg-primary pt-16 transition-colors duration-300 dark:bg-brand-bg-primary-dark sm:pt-24 shrink-0 border-t border-brand-accent-gold/20 dark:border-brand-accent-gold-dark/20">
       {/* Subtle top edge gradient fade */}
-      <div className="absolute left-0 top-0 h-[1px] w-full bg-[linear-gradient(90deg,transparent_0%,rgba(200,150,62,0.4)_50%,transparent_100%)]" />
+      <div className="absolute left-0 top-0 h-[1px] w-full bg-[linear-gradient(90deg,transparent_0%,rgba(200,150,62,0.4)_50%,transparent_100%)] dark:bg-[linear-gradient(90deg,transparent_0%,rgba(160,120,64,0.3)_50%,transparent_100%)]" />
 
       <motion.div
         variants={ANIMATIONS_ENABLED ? containerVariants : {}}
@@ -90,31 +90,31 @@ export function Footer() {
           
           {/* Col 1: Brand */}
           <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left">
-            <Logo className="text-brand-accent-gold" />
-            <p className="mt-4 font-body text-sm font-medium italic text-brand-text-secondary">
+            <Logo className="text-brand-accent-gold dark:text-brand-accent-gold-dark" />
+            <p className="mt-4 font-body text-sm font-medium italic text-brand-text-secondary dark:text-brand-text-secondary-dark">
               &quot;{FOOTER_CONTENT.tagline}&quot;
             </p>
-            <div className="mt-5 h-[1px] w-16 bg-brand-accent-gold/40" />
-            <div className="mt-6 flex h-[26px] items-center justify-center rounded-full border border-brand-accent-gold text-brand-accent-gold bg-brand-accent-gold/5 px-4 font-body text-[10px] font-bold tracking-widest uppercase">
+            <div className="mt-5 h-[1px] w-16 bg-brand-accent-gold/40 dark:bg-brand-accent-gold-dark/40" />
+            <div className="mt-6 flex h-[26px] items-center justify-center rounded-full border border-brand-accent-gold bg-brand-accent-gold/5 px-4 font-body text-[10px] font-bold uppercase tracking-widest text-brand-accent-gold dark:border-brand-accent-gold-dark dark:bg-brand-accent-gold-dark/5 dark:text-brand-accent-gold-dark">
               Est. 1987
             </div>
           </motion.div>
 
           {/* Col 2: Quick Links */}
           <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left lg:pl-8">
-            <h3 className="font-heading text-lg font-bold text-brand-accent-gold tracking-wide">
+            <h3 className="font-heading text-lg font-bold tracking-wide text-brand-accent-gold dark:text-brand-accent-gold-dark">
               Quick Links
             </h3>
-            <div className="mt-2 h-[2px] w-6 bg-brand-accent-gold mb-6" />
+            <div className="mb-6 mt-2 h-[2px] w-6 bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
             <ul className="flex flex-col gap-3">
               {FOOTER_CONTENT.quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="group relative font-body text-sm font-medium text-brand-text-secondary transition-colors hover:text-brand-text-primary"
+                    className="group relative font-body text-sm font-medium text-brand-text-secondary transition-colors hover:text-brand-text-primary dark:text-brand-text-secondary-dark dark:hover:text-brand-text-primary-dark"
                   >
                     <span>{link.label}</span>
-                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-brand-accent-gold transition-all duration-300 group-hover:w-full" />
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-brand-accent-gold transition-all duration-300 group-hover:w-full dark:bg-brand-accent-gold-dark" />
                   </Link>
                 </li>
               ))}
@@ -123,47 +123,47 @@ export function Footer() {
 
           {/* Col 3: Contact Info */}
           <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h3 className="font-heading text-lg font-bold text-brand-accent-gold tracking-wide">
+            <h3 className="font-heading text-lg font-bold tracking-wide text-brand-accent-gold dark:text-brand-accent-gold-dark">
               Contact
             </h3>
-            <div className="mt-2 h-[2px] w-6 bg-brand-accent-gold mb-6" />
-            <ul className="flex flex-col gap-4 font-body text-[13px] sm:text-sm text-brand-text-secondary">
-              <li className="flex items-start gap-3 justify-center md:justify-start">
-                <Phone className="mt-[2px] h-4 w-4 shrink-0 text-brand-accent-gold/60" />
+            <div className="mb-6 mt-2 h-[2px] w-6 bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
+            <ul className="flex flex-col gap-4 font-body text-[13px] text-brand-text-secondary dark:text-brand-text-secondary-dark sm:text-sm">
+              <li className="flex items-start justify-center gap-3 md:justify-start">
+                <Phone className="mt-[2px] h-4 w-4 shrink-0 text-brand-accent-gold/60 dark:text-brand-accent-gold-dark/60" />
                 <div className="flex flex-col gap-1">
                   {FOOTER_CONTENT.phone.map((num) => (
-                    <a key={num} href={`tel:${num.replace(/[^0-9]/g, '')}`} className="transition-colors hover:text-brand-text-primary">
+                    <a key={num} href={`tel:${num.replace(/[^0-9]/g, '')}`} className="transition-colors hover:text-brand-text-primary dark:hover:text-brand-text-primary-dark">
                       {num}
                     </a>
                   ))}
                 </div>
               </li>
-              <li className="flex items-center gap-3 justify-center md:justify-start">
-                <Mail className="h-4 w-4 shrink-0 text-brand-accent-gold/60" />
-                <a href={`mailto:${FOOTER_CONTENT.email}`} className="transition-colors hover:text-brand-text-primary">
+              <li className="flex items-center justify-center gap-3 md:justify-start">
+                <Mail className="h-4 w-4 shrink-0 text-brand-accent-gold/60 dark:text-brand-accent-gold-dark/60" />
+                <a href={`mailto:${FOOTER_CONTENT.email}`} className="transition-colors hover:text-brand-text-primary dark:hover:text-brand-text-primary-dark">
                   {FOOTER_CONTENT.email}
                 </a>
               </li>
-              <li className="flex items-start gap-3 justify-center md:justify-start">
-                <Clock className="mt-[2px] h-4 w-4 shrink-0 text-brand-accent-gold/60" />
+              <li className="flex items-start justify-center gap-3 md:justify-start">
+                <Clock className="mt-[2px] h-4 w-4 shrink-0 text-brand-accent-gold/60 dark:text-brand-accent-gold-dark/60" />
                 <span>{FOOTER_CONTENT.timing}</span>
               </li>
             </ul>
           </motion.div>
 
           {/* Col 4: Follow Us */}
-          <motion.div variants={childVariants} className="flex flex-col items-center justify-between md:items-start text-center md:text-left">
+          <motion.div variants={childVariants} className="flex flex-col items-center justify-between text-center md:items-start md:text-left">
             <div>
-              <h3 className="font-heading text-lg font-bold text-brand-accent-gold tracking-wide">
+              <h3 className="font-heading text-lg font-bold tracking-wide text-brand-accent-gold dark:text-brand-accent-gold-dark">
                 Follow Us
               </h3>
-              <div className="mt-2 mx-auto md:mx-0 h-[2px] w-6 bg-brand-accent-gold mb-6" />
+              <div className="mb-6 mt-2 mx-auto h-[2px] w-6 bg-brand-accent-gold dark:bg-brand-accent-gold-dark md:mx-0" />
               <div className="flex items-center gap-4">
                 <a
                   href={FOOTER_CONTENT.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold hover:scale-110 active:scale-95"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
                   aria-label="Facebook"
                 >
                   <Facebook size={18} />
@@ -172,7 +172,7 @@ export function Footer() {
                   href={FOOTER_CONTENT.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold hover:scale-110 active:scale-95"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
                   aria-label="Instagram"
                 >
                   <Instagram size={18} />
@@ -181,7 +181,7 @@ export function Footer() {
                   href={FOOTER_CONTENT.social.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold hover:scale-110 active:scale-95"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
                   aria-label="Twitter"
                 >
                   <Twitter size={18} />
@@ -193,10 +193,10 @@ export function Footer() {
       </motion.div>
 
       {/* Strict Footer Native Scroll to Top (As requested, not view-fixed) */}
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 flex justify-end">
+      <div className="relative mx-auto flex max-w-7xl px-6 justify-end sm:px-8 lg:px-12">
         <button
           onClick={scrollToTop}
-          className={`absolute -top-16 right-6 md:right-12 z-20 flex h-11 min-w-[44px] items-center justify-center rounded-full border border-brand-accent-gold text-brand-accent-gold transition-all duration-500 hover:bg-brand-accent-gold hover:text-brand-bg-primary hover:shadow-lg hover:shadow-brand-accent-gold/20 ${
+          className={`absolute -top-16 right-6 z-20 flex h-11 min-w-[44px] items-center justify-center rounded-full border border-brand-accent-gold text-brand-accent-gold transition-all duration-500 hover:bg-brand-accent-gold hover:text-brand-bg-primary hover:shadow-lg hover:shadow-brand-accent-gold/20 dark:border-brand-accent-gold-dark dark:text-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark dark:hover:text-brand-text-primary-dark dark:hover:shadow-brand-accent-gold-dark/20 md:right-12 ${
             showScrollTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
           }`}
           aria-label="Scroll to top"
@@ -206,22 +206,22 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar: Copyright & Dev Signature */}
-      <div className="relative border-t border-brand-accent-gold/10 bg-[#0A0A0A]">
+      <div className="relative border-t border-brand-accent-gold/10 bg-brand-bg-secondary dark:border-brand-accent-gold-dark/10 dark:bg-black">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-6 py-7 sm:px-8 md:flex-row lg:px-12">
-          <p className="text-center font-body text-xs text-brand-text-secondary tracking-wide">
+          <p className="text-center font-body text-xs tracking-wide text-brand-text-secondary dark:text-brand-text-secondary-dark">
             {CREDIT.copyright}
           </p>
           
-          <div className="flex items-center gap-[6px] font-body text-xs text-brand-text-secondary">
+          <div className="flex items-center gap-[6px] font-body text-xs text-brand-text-secondary dark:text-brand-text-secondary-dark">
             {CREDIT.devLabel}
             <a
               href={CREDIT.devUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex items-center font-heading text-[14px] font-bold italic tracking-wider text-brand-accent-gold transition-all duration-300 hover:text-[#e5b35a] hover:drop-shadow-[0_0_10px_rgba(200,150,62,0.6)]"
+              className="group relative flex items-center font-heading text-[14px] font-bold italic tracking-wider text-brand-accent-gold transition-all duration-300 hover:drop-shadow-[0_0_10px_rgba(200,150,62,0.6)] dark:text-brand-accent-gold-dark"
             >
               <span className="relative z-10 px-1">{CREDIT.devName}</span>
-              <span className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-brand-accent-gold transition-all duration-500 ease-out group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 h-[1.5px] w-0 bg-brand-accent-gold transition-all duration-500 ease-out group-hover:w-full dark:bg-brand-accent-gold-dark" />
             </a>
           </div>
         </div>

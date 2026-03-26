@@ -58,16 +58,16 @@ const row2 = Array(8).fill(TESTIMONIALS.slice(3)).flat();
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="w-72 sm:w-80 flex-none rounded-2xl border border-brand-border bg-brand-bg-elevated p-5 sm:p-6 shadow-sm transition-colors hover:border-brand-accent-gold/40">
-      <span className="font-heading text-4xl sm:text-5xl leading-none text-brand-accent-gold/40">&ldquo;</span>
-      <p className="mt-1 font-body text-xs sm:text-sm leading-relaxed text-brand-text-secondary">
+    <div className="w-72 sm:w-80 flex-none rounded-2xl border border-brand-border bg-brand-bg-elevated p-5 sm:p-6 shadow-sm transition-colors hover:border-brand-accent-gold/40 dark:border-brand-border-dark dark:bg-brand-bg-elevated-dark dark:hover:border-brand-accent-gold-dark/40">
+      <span className="font-heading text-4xl sm:text-5xl leading-none text-brand-accent-gold/40 dark:text-brand-accent-gold-dark/40">&ldquo;</span>
+      <p className="mt-1 font-body text-xs sm:text-sm leading-relaxed text-brand-text-secondary dark:text-brand-text-secondary-dark">
         {testimonial.quote}
       </p>
-      <div className="mt-5 flex items-center justify-between border-t border-brand-border pt-4 sm:mt-6">
-        <p className="font-body text-xs sm:text-sm font-semibold text-brand-text-primary">
+      <div className="mt-5 flex items-center justify-between border-t border-brand-border pt-4 dark:border-brand-border-dark sm:mt-6">
+        <p className="font-body text-xs sm:text-sm font-semibold text-brand-text-primary dark:text-brand-text-primary-dark">
           {testimonial.author}
         </p>
-        <p className="font-body text-[10px] sm:text-xs text-brand-text-secondary/70">{testimonial.location}</p>
+        <p className="font-body text-[10px] sm:text-xs text-brand-text-secondary/70 dark:text-brand-text-secondary-dark/70">{testimonial.location}</p>
       </div>
     </div>
   );
@@ -86,17 +86,17 @@ export function TestimonialsSection() {
   const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
 
   return (
-    <section id="testimonials" className="overflow-hidden bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.2)]">
+    <section id="testimonials" className="overflow-hidden bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.05)] transition-colors duration-300 dark:bg-brand-bg-secondary-dark dark:shadow-[inset_0_20px_40px_rgba(0,0,0,0.4)]">
       <motion.div {...headerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div {...childProps} className="mb-14 text-center">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold">
+          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             What People Say
           </p>
           <div className="relative inline-block">
-            <h2 className="font-heading text-4xl font-semibold text-brand-text-primary lg:text-5xl">
+            <h2 className="font-heading text-4xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark lg:text-5xl">
               Loved by Everyone
             </h2>
-            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
+            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
           </div>
         </motion.div>
       </motion.div>

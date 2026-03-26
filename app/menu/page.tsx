@@ -63,36 +63,36 @@ export default function MenuPage() {
   const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
 
   return (
-    <main id="menu" className="min-h-[100svh] bg-brand-bg-primary pb-24 pt-28">
+    <main id="menu" className="min-h-[100svh] bg-brand-bg-primary pb-24 pt-28 transition-colors duration-300 dark:bg-brand-bg-primary-dark">
       <NavBar />
       
       <motion.div {...containerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Page Header */}
         <motion.div {...childProps} className="mb-14 text-center">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold">
+          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             The Complete Experience
           </p>
           <div className="relative inline-block">
-            <h1 className="font-heading text-4xl font-bold text-brand-text-primary lg:text-5xl">
+            <h1 className="font-heading text-4xl font-bold text-brand-text-primary dark:text-brand-text-primary-dark lg:text-5xl">
               Full Menu
             </h1>
-            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
+            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
           </div>
-          <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary">
+          <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary dark:text-brand-text-secondary-dark">
             Explore our vast array of culinary masterpieces, from smoky charcoal BBQ to rich traditional curries.
           </p>
         </motion.div>
 
         {/* ⚠️ TAGS NOW INTERACTIVE — Interactive Filter Pill System */}
-        <motion.div {...childProps} className="sticky top-[88px] z-30 -mx-4 mb-4 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/95 px-4 py-4 backdrop-blur-md sm:mx-0 sm:justify-center sm:gap-3 sm:px-0 scrollbar-hide">
+        <motion.div {...childProps} className="scrollbar-hide sticky top-[88px] z-30 -mx-4 mb-4 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/95 px-4 py-4 backdrop-blur-md dark:bg-brand-bg-primary-dark/95 sm:mx-0 sm:justify-center sm:gap-3 sm:px-0">
           <button
             onClick={() => setActiveCategory('All')}
             className={[
               'shrink-0 whitespace-nowrap rounded-full px-3 py-1 font-body text-xs transition-all duration-200 sm:px-4 sm:py-1.5 sm:text-sm',
               activeCategory === 'All'
-                ? 'bg-brand-accent-gold font-medium text-brand-bg-primary border border-brand-accent-gold shadow-[0_0_15px_rgba(200,150,62,0.3)]'
-                : 'border border-brand-accent-gold/40 bg-transparent text-brand-accent-gold/70 hover:border-brand-accent-gold hover:text-brand-text-primary'
+                ? 'bg-brand-accent-gold font-medium text-brand-bg-primary border border-brand-accent-gold shadow-[0_0_15px_rgba(200,150,62,0.3)] dark:bg-brand-accent-gold-dark dark:border-brand-accent-gold-dark dark:text-brand-text-primary-dark'
+                : 'border border-brand-accent-gold/40 bg-transparent text-brand-accent-gold/70 hover:border-brand-accent-gold hover:text-brand-text-primary dark:border-brand-accent-gold-dark/40 dark:text-brand-accent-gold-dark/70 dark:hover:border-brand-accent-gold-dark dark:hover:text-brand-text-primary-dark'
             ].join(' ')}
           >
             All Menu
@@ -111,8 +111,8 @@ export default function MenuPage() {
                 className={[
                   'shrink-0 whitespace-nowrap rounded-full px-3 py-1 font-body text-xs transition-all duration-200 sm:px-4 sm:py-1.5 sm:text-sm',
                   isActive
-                    ? 'bg-brand-accent-gold font-medium text-brand-bg-primary border border-brand-accent-gold shadow-[0_0_15px_rgba(200,150,62,0.3)]'
-                    : 'border border-brand-accent-gold/40 bg-transparent text-brand-accent-gold/70 hover:border-brand-accent-gold hover:text-brand-text-primary'
+                    ? 'bg-brand-accent-gold font-medium text-brand-bg-primary border border-brand-accent-gold shadow-[0_0_15px_rgba(200,150,62,0.3)] dark:bg-brand-accent-gold-dark dark:border-brand-accent-gold-dark dark:text-brand-text-primary-dark'
+                    : 'border border-brand-accent-gold/40 bg-transparent text-brand-accent-gold/70 hover:border-brand-accent-gold hover:text-brand-text-primary dark:border-brand-accent-gold-dark/40 dark:text-brand-accent-gold-dark/70 dark:hover:border-brand-accent-gold-dark dark:hover:text-brand-text-primary-dark'
                 ].join(' ')}
               >
                 {category.name}
@@ -138,10 +138,10 @@ export default function MenuPage() {
               >
                 {/* Category Header */}
                 <div className="mb-6 flex items-center justify-between sm:mb-8">
-                  <h2 className="font-heading text-2xl font-bold text-brand-text-primary sm:text-3xl">
+                  <h2 className="font-heading text-2xl font-bold text-brand-text-primary dark:text-brand-text-primary-dark sm:text-3xl">
                     {category.name}
                   </h2>
-                  <div className="ml-4 h-[1px] flex-1 bg-brand-border sm:ml-6" />
+                  <div className="ml-4 h-[1px] flex-1 bg-brand-border dark:bg-brand-border-dark sm:ml-6" />
                 </div>
 
                 {/* Dish Grid: 2-col app-like density on mobile! */}

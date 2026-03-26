@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { useCart } from '@/hooks/useCart';
 
 const NAV_LINKS = [
@@ -62,26 +63,12 @@ export function NavBarClient() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 sm:px-6">
-        <motion.header
-          initial={false}
-          animate={
+        <header
+          className={`w-full max-w-5xl rounded-full border px-5 py-2.5 transition-all duration-300 ease-in-out ${
             scrolled
-              ? {
-                  backgroundColor: 'rgba(12,12,12,0.80)',
-                  boxShadow: '0 4px 32px rgba(0,0,0,0.40)',
-                  backdropFilter: 'blur(20px)',
-                  borderColor: 'rgba(200,150,62,0.20)', // subtle gold
-                }
-              : {
-                  backgroundColor: 'rgba(12,12,12,0)',
-                  boxShadow: '0 0px 0px rgba(0,0,0,0)',
-                  backdropFilter: 'blur(0px)',
-                  borderColor: 'rgba(200,150,62,0)',
-                }
-          }
-          style={{ WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'blur(0px)' }}
-          transition={{ duration: 0.35, ease: 'easeInOut' }}
-          className="w-full max-w-5xl rounded-full border px-5 py-2.5 transition-all duration-300"
+              ? 'border-brand-accent-gold/20 bg-brand-bg-primary/90 shadow-[0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-xl dark:border-brand-accent-gold-dark/20 dark:bg-brand-bg-primary-dark/80 dark:shadow-[0_4px_32px_rgba(0,0,0,0.4)]'
+              : 'border-transparent bg-transparent shadow-none backdrop-blur-none'
+          }`}
         >
           <div className="flex h-11 items-center justify-between">
             <Link href="/" onClick={close}>
@@ -100,13 +87,13 @@ export function NavBarClient() {
                     href={link.href}
                     className={[
                       'relative rounded-full px-4 py-1.5 font-body text-sm font-medium transition-colors',
-                      isActive ? 'text-brand-text-primary' : 'text-brand-text-secondary hover:text-brand-text-primary',
+                      isActive ? 'text-brand-text-primary dark:text-brand-text-primary-dark' : 'text-brand-text-secondary hover:text-brand-text-primary dark:text-brand-text-secondary-dark dark:hover:text-brand-text-primary-dark',
                     ].join(' ')}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="nav-active-pill"
-                        className="absolute inset-0 rounded-full bg-brand-text-primary/10 ring-1 ring-brand-text-primary/15"
+                        className="absolute inset-0 rounded-full bg-brand-text-primary/10 ring-1 ring-brand-text-primary/15 dark:bg-brand-text-primary-dark/10 dark:ring-brand-text-primary-dark/15"
                         transition={{ type: 'spring', stiffness: 380, damping: 34 }}
                       />
                     )}
@@ -117,10 +104,12 @@ export function NavBarClient() {
             </nav>
 
             <div className="flex items-center gap-2 sm:gap-3">
+              <ThemeToggle />
+              
               <Link
                 href="/cart"
                 aria-label="View Cart"
-                className="relative flex h-9 w-9 items-center justify-center rounded-full bg-brand-text-primary/5 text-brand-text-secondary transition-colors hover:bg-brand-text-primary/10 hover:text-brand-accent-gold"
+                className="relative flex h-9 w-9 items-center justify-center rounded-full bg-brand-text-primary/5 text-brand-text-secondary transition-colors hover:bg-brand-text-primary/10 hover:text-brand-accent-gold dark:bg-brand-text-primary-dark/5 dark:text-brand-text-secondary-dark dark:hover:bg-brand-text-primary-dark/10 dark:hover:text-brand-accent-gold-dark"
               >
                 <ShoppingCart size={18} />
                 {totalItems > 0 && (
@@ -138,7 +127,7 @@ export function NavBarClient() {
 
               <Link
                 href="/#reservations"
-                className="hidden rounded-full bg-brand-accent-gold px-5 py-2 font-body text-sm font-semibold text-brand-text-primary shadow-md shadow-brand-accent-gold/30 transition-all hover:bg-[#976d29] md:inline-flex"
+                className="hidden rounded-full bg-brand-accent-gold px-5 py-2 font-body text-sm font-semibold text-brand-bg-primary shadow-md shadow-brand-accent-gold/30 transition-all hover:brightness-105 dark:bg-brand-accent-gold-dark dark:text-brand-text-primary-dark dark:hover:brightness-110 md:inline-flex"
               >
                 Contact Us
               </Link>
@@ -147,13 +136,13 @@ export function NavBarClient() {
                 aria-label={menuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((o) => !o)}
-                className="flex h-9 w-9 items-center justify-center rounded-xl text-brand-text-secondary hover:text-brand-text-primary md:hidden"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-brand-text-secondary hover:text-brand-text-primary dark:text-brand-text-secondary-dark dark:hover:text-brand-text-primary-dark md:hidden"
               >
                 {menuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
-        </motion.header>
+        </header>
       </div>
 
       <AnimatePresence>
@@ -173,17 +162,21 @@ export function NavBarClient() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-brand-bg-primary px-8 py-20 shadow-2xl md:hidden"
+              className="fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-brand-bg-primary px-8 py-20 shadow-2xl dark:bg-brand-bg-primary-dark md:hidden"
             >
               <button
                 onClick={close}
                 aria-label="Close menu"
-                className="absolute right-6 top-6 flex h-9 w-9 items-center justify-center rounded-full bg-brand-text-primary/5 text-brand-text-secondary transition-colors hover:bg-brand-text-primary/10 hover:text-brand-text-primary"
+                className="absolute right-6 top-6 flex h-9 w-9 items-center justify-center rounded-full bg-brand-text-primary/5 text-brand-text-secondary transition-colors hover:bg-brand-text-primary/10 hover:text-brand-text-primary dark:bg-brand-text-primary-dark/5 dark:text-brand-text-secondary-dark dark:hover:bg-brand-text-primary-dark/10 dark:hover:text-brand-text-primary-dark"
               >
                 <X size={20} />
               </button>
 
               <nav className="flex flex-col gap-5">
+                <div className="mb-4 flex items-center justify-between border-b border-brand-border pb-4 dark:border-brand-border-dark">
+                  <span className="font-heading text-base font-medium text-brand-text-secondary dark:text-brand-text-secondary-dark">Theme Preference</span>
+                  <ThemeToggle />
+                </div>
                 {NAV_LINKS.map((link) => {
                   const isActive = isHomePage
                     ? activeSection === link.sectionId
@@ -196,7 +189,7 @@ export function NavBarClient() {
                       onClick={close}
                       className={[
                         'font-heading text-2xl font-semibold transition-colors',
-                        isActive ? 'text-brand-accent-gold' : 'text-brand-text-secondary hover:text-brand-text-primary',
+                        isActive ? 'text-brand-accent-gold dark:text-brand-accent-gold-dark' : 'text-brand-text-secondary hover:text-brand-text-primary dark:text-brand-text-secondary-dark dark:hover:text-brand-text-primary-dark',
                       ].join(' ')}
                     >
                       {link.label}
@@ -206,7 +199,7 @@ export function NavBarClient() {
                 <Link
                   href="/#reservations"
                   onClick={close}
-                  className="mt-4 rounded-full bg-brand-accent-gold px-6 py-3 text-center font-body text-sm font-semibold text-brand-text-primary shadow-md"
+                  className="mt-4 rounded-full bg-brand-accent-gold px-6 py-3 text-center font-body text-sm font-semibold text-brand-bg-primary shadow-md dark:bg-brand-accent-gold-dark dark:text-brand-text-primary-dark"
                 >
                   Contact Us
                 </Link>

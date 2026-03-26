@@ -3,6 +3,7 @@ import { headingFont, bodyFont } from '@/lib/fonts';
 import { Footer } from '@/components/sections/Footer';
 import { LayoutWrapper } from '@/components/LayoutWrapper';
 import { FloatingCartBar } from '@/components/FloatingCartBar';
+import { ThemeProvider } from '@/components/ThemeProvider';
 import './globals.css';
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -40,8 +41,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  // TODO: Update themeColor to match final brand.charcoal hex once confirmed
-  themeColor: '#1C1C1C',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FAF7F2' },
+    { media: '(prefers-color-scheme: dark)', color: '#1A1A1A' },
+  ],
 };
 
 // ─── Root Layout ──────────────────────────────────────────────────────────────
@@ -54,14 +57,22 @@ export default function RootLayout({
     // TODO: Change lang to 'ur' or 'en-PK' if serving Urdu content as primary
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${headingFont.variable} ${bodyFont.variable}`}
     >
-      <body className="flex min-h-[100svh] flex-col bg-brand-bg-primary font-body text-brand-text-primary antialiased">
-        <LayoutWrapper>
-          {children}
-          <Footer />
-        </LayoutWrapper>
-        <FloatingCartBar />
+      <body className="flex min-h-[100svh] flex-col bg-brand-bg-primary font-body text-brand-text-primary antialiased dark:bg-brand-bg-primary-dark dark:text-brand-text-primary-dark transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="baba-tikkah-theme"
+        >
+          <LayoutWrapper>
+            {children}
+            <Footer />
+          </LayoutWrapper>
+          <FloatingCartBar />
+        </ThemeProvider>
       </body>
     </html>
   );

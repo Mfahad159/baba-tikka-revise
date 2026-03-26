@@ -144,7 +144,7 @@ export function BabaTikkahLoader({ onComplete }: BabaTikkahLoaderProps) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-opacity duration-800 ease-in-out ${
+      className={`dark fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-opacity duration-800 ease-in-out ${
         fadingOut ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}
     >

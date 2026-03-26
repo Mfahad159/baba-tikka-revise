@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,20 +12,31 @@ const config: Config = {
       colors: {
         brand: {
           bg: {
-            primary: "#0C0C0C",
-            secondary: "#141414",
-            elevated: "#1C1C1C",
+            primary: "#FAF7F2",
+            "primary-dark": "#0C0C0C",
+            secondary: "#F0EBE3",
+            "secondary-dark": "#141414",
+            elevated: "#E8E0D5",
+            "elevated-dark": "#1C1C1C",
           },
           accent: {
-            gold: "#C8963E",
-            goldMuted: "rgba(200, 150, 62, 0.15)",
+            gold: "#A07840",
+            "gold-dark": "#C8963E",
+            goldMuted: "rgba(160, 120, 64, 0.5)",
+            "goldMuted-dark": "rgba(200, 150, 62, 0.5)",
           },
           text: {
-            primary: "#FFFFFF",
-            secondary: "rgba(255, 255, 255, 0.6)",
-            accent: "#C8963E",
+            primary: "#1A1A1A",
+            "primary-dark": "#FFFFFF",
+            secondary: "#6B5B4E",
+            "secondary-dark": "rgba(255, 255, 255, 0.45)",
+            accent: "#A07840",
+            "accent-dark": "#C8963E",
           },
-          border: "rgba(255, 255, 255, 0.1)",
+          border: {
+            DEFAULT: "rgba(160, 120, 64, 0.2)",
+            dark: "rgba(255, 255, 255, 0.1)",
+          },
         },
       },
       fontFamily: {

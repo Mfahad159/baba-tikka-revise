@@ -56,21 +56,21 @@ export function MenuHighlights() {
   const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
 
   return (
-    <section id="menu" className="bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.2)]">
+    <section id="menu" className="bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.05)] transition-colors duration-300 dark:bg-brand-bg-secondary-dark dark:shadow-[inset_0_20px_40px_rgba(0,0,0,0.4)]">
       <motion.div {...containerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section header */}
         <motion.div {...childProps} className="mb-14 text-center">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold">
+          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             Our Specialties
           </p>
           <div className="relative inline-block">
-            <h2 className="font-heading text-4xl font-semibold text-brand-text-primary lg:text-5xl">
+            <h2 className="font-heading text-4xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark lg:text-5xl">
               Menu Highlights
             </h2>
-            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold" />
+            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
           </div>
-          <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary">
+          <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary dark:text-brand-text-secondary-dark">
             A curated selection of our finest dishes. No endless scrolling—just the absolute best we have to offer.
           </p>
         </motion.div>
@@ -102,7 +102,7 @@ export function MenuHighlights() {
         <motion.div {...childProps} className="mt-14 text-center">
           <Link
             href="/menu" // TODO: connect to full menu page when available
-            className="inline-flex items-center gap-2 rounded-full border border-brand-accent-gold/40 px-8 py-3.5 font-body text-sm font-semibold text-brand-accent-gold transition-all hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95"
+            className="inline-flex items-center gap-2 rounded-full border border-brand-accent-gold/40 px-8 py-3.5 font-body text-sm font-semibold text-brand-accent-gold transition-all hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-accent-gold-dark/40 dark:text-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
           >
             View Full Menu
             <span aria-hidden>→</span>

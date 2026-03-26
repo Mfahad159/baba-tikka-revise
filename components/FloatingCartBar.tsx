@@ -53,12 +53,12 @@ export function FloatingCartBar() {
           onClick={() => router.push('/cart')}
           className={`fixed bottom-0 left-0 right-0 z-50 cursor-pointer rounded-t-[28px] pb-[env(safe-area-inset-bottom)] transition-all duration-300 hover:brightness-105 active:scale-[0.99] ${
             pulse ? 'shadow-[0_-8px_30px_rgba(200,150,62,0.15)]' : 'shadow-[0_-8px_24px_rgba(0,0,0,0.5)]'
-          } bg-brand-bg-elevated border-t border-brand-border/30`}
+          } bg-brand-bg-elevated dark:bg-brand-bg-elevated-dark border-t border-brand-border/30 dark:border-brand-border-dark/30`}
         >
           <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-3 px-5 py-3 sm:px-6">
             
             {/* Left: Item Count Circle Badge */}
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-accent-gold shadow-md sm:h-12 sm:w-12">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark shadow-md sm:h-12 sm:w-12">
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={totalItems}
@@ -74,7 +74,7 @@ export function FloatingCartBar() {
             </div>
 
             {/* Right: Elongated Action Pill */}
-            <div className="flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-accent-gold py-2.5 shadow-md sm:py-3">
+            <div className="flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark py-2.5 shadow-md sm:py-3 cursor-pointer">
               <span className="font-heading text-base font-semibold tracking-wide text-brand-bg-primary sm:text-lg">
                 Cart {totalPrice > 0 && `— ${formatPKR(totalPrice)}`}
               </span>
