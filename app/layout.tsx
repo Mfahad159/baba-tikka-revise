@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { headingFont, bodyFont } from '@/lib/fonts';
 import { Footer } from '@/components/sections/Footer';
+import { LayoutWrapper } from '@/components/LayoutWrapper';
+import { FloatingCartBar } from '@/components/FloatingCartBar';
 import './globals.css';
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -55,8 +57,11 @@ export default function RootLayout({
       className={`${headingFont.variable} ${bodyFont.variable}`}
     >
       <body className="flex min-h-[100svh] flex-col bg-brand-bg-primary font-body text-brand-text-primary antialiased">
-        {children}
-        <Footer />
+        <LayoutWrapper>
+          {children}
+          <Footer />
+        </LayoutWrapper>
+        <FloatingCartBar />
       </body>
     </html>
   );
