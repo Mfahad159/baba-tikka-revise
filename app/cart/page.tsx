@@ -136,7 +136,7 @@ export default function CartPage() {
                       <h3 className="truncate font-heading text-lg font-semibold text-brand-text-primary dark:text-brand-text-primary-dark">
                         {item.name}
                       </h3>
-                      <p className="mt-1 font-body text-sm text-brand-accent-gold dark:text-brand-accent-gold-dark">{formatPKR(item.price)}</p>
+                      <p className="mt-1 font-sans font-medium text-sm tracking-tight text-brand-accent-gold dark:text-brand-accent-gold-dark">{formatPKR(item.price)}</p>
                     </div>
 
                     {/* Actions Row */}
@@ -162,7 +162,7 @@ export default function CartPage() {
                       </div>
 
                       {/* Subtotal */}
-                      <div className="hidden min-w-[80px] text-right font-body font-semibold text-brand-text-primary dark:text-brand-text-primary-dark sm:block">
+                      <div className="hidden min-w-[80px] text-right font-sans font-medium tracking-tight text-brand-text-primary dark:text-brand-text-primary-dark sm:block">
                         {formatPKR(item.price * item.quantity)}
                       </div>
 
@@ -188,16 +188,16 @@ export default function CartPage() {
             <div className="space-y-4 font-body text-sm">
               <div className="flex justify-between text-brand-text-secondary dark:text-brand-text-secondary-dark">
                 <span>Subtotal</span>
-                <span className="text-brand-text-primary dark:text-brand-text-primary-dark">{formatPKR(totalPrice)}</span>
+                <span className="font-sans font-medium tracking-tight text-brand-text-primary dark:text-brand-text-primary-dark">{formatPKR(totalPrice)}</span>
               </div>
               <div className="flex justify-between text-brand-text-secondary dark:text-brand-text-secondary-dark">
                 <span>Delivery logic <span className="ml-1 text-[10px] uppercase tracking-widest text-brand-accent-gold dark:text-brand-accent-gold-dark">(TODO)</span></span>
-                <span className="text-brand-text-primary dark:text-brand-text-primary-dark">{formatPKR(DELIVERY_FEE)}</span>
+                <span className="font-sans font-medium tracking-tight text-brand-text-primary dark:text-brand-text-primary-dark">{formatPKR(DELIVERY_FEE)}</span>
               </div>
               <div className="my-4 h-px w-full bg-brand-border dark:bg-brand-border-dark" />
               <div className="flex justify-between font-heading text-lg font-bold text-brand-text-primary dark:text-brand-text-primary-dark">
                 <span>Total</span>
-                <span className="text-brand-accent-gold dark:text-brand-accent-gold-dark">{formatPKR(finalTotal)}</span>
+                <span className="font-sans font-bold tracking-tight text-brand-accent-gold dark:text-brand-accent-gold-dark">{formatPKR(finalTotal)}</span>
               </div>
             </div>
 

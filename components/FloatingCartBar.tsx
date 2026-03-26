@@ -75,7 +75,7 @@ export function FloatingCartBar() {
 
             {/* Right: Elongated Action Pill */}
             <div className="flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark py-2.5 shadow-md sm:py-3 cursor-pointer">
-              <span className="font-heading text-base font-semibold tracking-wide text-brand-bg-primary sm:text-lg">
+              <span className="font-sans text-base font-semibold tracking-tight text-brand-bg-primary sm:text-lg">
                 Cart {totalPrice > 0 && `— ${formatPKR(totalPrice)}`}
               </span>
               <ArrowRight size={18} strokeWidth={2.5} className="ml-1 text-brand-bg-primary" />

@@ -113,7 +113,7 @@ export function DishCard({ dish }: DishCardProps) {
         <div className="mt-auto flex flex-col gap-2 border-t border-brand-border/40 pt-2 dark:border-brand-border-dark/40 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:pt-3 lg:pt-4">
           
           <div className="flex items-center justify-between sm:flex-col sm:items-start sm:gap-1">
-            <span className={`font-body font-bold text-brand-accent-gold dark:text-brand-accent-gold-dark ${dish.isFeatured ? 'text-base sm:text-lg lg:text-xl' : 'text-sm sm:text-base'}`}>
+            <span className={`font-sans font-semibold tracking-tight text-brand-accent-gold dark:text-brand-accent-gold-dark ${dish.isFeatured ? 'text-base sm:text-lg lg:text-xl' : 'text-sm sm:text-base'}`}>
               {dish.price > 0 ? formatPKR(dish.price) : '—'}
             </span>
             <div className="sm:hidden lg:block">

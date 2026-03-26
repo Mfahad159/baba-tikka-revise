@@ -15,7 +15,7 @@ export function Logo({ className = '' }: LogoProps) {
         className="object-contain"
         priority
       />
-      <span className="font-heading text-lg font-bold tracking-tight sm:text-xl lg:text-2xl">
+      <span className="font-heading text-lg font-bold tracking-tight text-brand-text-primary dark:text-brand-text-primary-dark sm:text-xl lg:text-2xl">
         Baba Tikkah
       </span>
     </div>
