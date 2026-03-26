@@ -77,14 +77,13 @@ export function MenuHighlights() {
 
         {/* 
           Phase B Layout: 1 Featured Card + 2 Standard Cards.
-          Mobile: Single column full width. 
-          Tablet: 2 columns. Featured spans both.
-          Desktop: 3 columns. Featured spans 2 columns, standard span 1. 
+          Mobile: 2 columns, Featured spans both.
+          Tablet: 3 columns, Featured spans 2 columns, standard span 1. 
         */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {MENU_ITEMS.slice(0, 3).map((item) => {
             const colSpan = item.isFeatured 
-              ? 'sm:col-span-2 lg:col-span-2' 
+              ? 'col-span-2 lg:col-span-2' 
               : 'col-span-1 lg:col-span-1';
 
             return (

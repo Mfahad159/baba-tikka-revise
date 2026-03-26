@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { NavBar } from '@/components/sections/NavBar';
 import { DishCard, DishData } from '@/components/ui/DishCard';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
 
 const MENU_CATEGORIES = [
@@ -45,6 +46,12 @@ const MENU_CATEGORIES = [
 ];
 
 export default function MenuPage() {
+  const [activeCategory, setActiveCategory] = useState<string>('All');
+  
+  const filteredCategories = activeCategory === 'All' 
+    ? MENU_CATEGORIES 
+    : MENU_CATEGORIES.filter(c => c.name === activeCategory);
+
   const containerProps = ANIMATIONS_ENABLED
     ? {
         variants: staggerContainer,
@@ -77,21 +84,36 @@ export default function MenuPage() {
           </p>
         </motion.div>
 
-        {/* Menu Categories Jump-Links */}
-        <motion.div {...childProps} className="sticky top-[88px] z-30 -mx-4 mb-12 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/90 px-4 py-4 backdrop-blur-md sm:mx-0 sm:justify-center sm:px-0 scrollbar-hide">
+        {/* ⚠️ TAGS NOW INTERACTIVE — Interactive Filter Pill System */}
+        <motion.div {...childProps} className="sticky top-[88px] z-30 -mx-4 mb-4 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/95 px-4 py-4 backdrop-blur-md sm:mx-0 sm:justify-center sm:gap-3 sm:px-0 scrollbar-hide">
+          <button
+            onClick={() => setActiveCategory('All')}
+            className={[
+              'shrink-0 whitespace-nowrap rounded-full px-3 py-1 font-body text-xs transition-all duration-200 sm:px-4 sm:py-1.5 sm:text-sm',
+              activeCategory === 'All'
+                ? 'bg-brand-accent-gold font-medium text-brand-bg-primary border border-brand-accent-gold shadow-[0_0_15px_rgba(200,150,62,0.3)]'
+                : 'border border-brand-accent-gold/40 bg-transparent text-brand-accent-gold/70 hover:border-brand-accent-gold hover:text-brand-text-primary'
+            ].join(' ')}
+          >
+            All Menu
+          </button>
+          
           {MENU_CATEGORIES.map((category) => {
-            const id = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            const isActive = activeCategory === category.name;
             return (
               <button
-                key={id}
+                key={category.name}
                 onClick={() => {
-                  const el = document.getElementById(id);
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 160;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
+                  setActiveCategory(category.name);
+                  // Ensure we scroll slightly to lock the tags grid perfectly to the top of the header safely
+                  window.scrollTo({ top: 400, behavior: 'smooth' });
                 }}
-                className="whitespace-nowrap rounded-full border border-brand-border bg-brand-bg-secondary px-5 py-2 font-body text-sm font-medium text-brand-text-secondary transition-all hover:border-brand-accent-gold/50 hover:text-brand-accent-gold"
+                className={[
+                  'shrink-0 whitespace-nowrap rounded-full px-3 py-1 font-body text-xs transition-all duration-200 sm:px-4 sm:py-1.5 sm:text-sm',
+                  isActive
+                    ? 'bg-brand-accent-gold font-medium text-brand-bg-primary border border-brand-accent-gold shadow-[0_0_15px_rgba(200,150,62,0.3)]'
+                    : 'border border-brand-accent-gold/40 bg-transparent text-brand-accent-gold/70 hover:border-brand-accent-gold hover:text-brand-text-primary'
+                ].join(' ')}
               >
                 {category.name}
               </button>
@@ -99,44 +121,44 @@ export default function MenuPage() {
           })}
         </motion.div>
 
-        {/* Menu Categories Grid */}
-        <div className="space-y-24">
-          {MENU_CATEGORIES.map((category) => {
-            const sectionId = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            return (
-            <motion.section 
-              id={sectionId}
-              key={category.name}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              variants={staggerContainer}
-              className="relative"
-            >
-              {/* Category Header */}
-              <motion.div variants={scrollEntrance} className="mb-8 flex items-center justify-between">
-                <h2 className="font-heading text-3xl font-bold text-brand-text-primary">
-                  {category.name}
-                </h2>
-                <div className="ml-6 h-[1px] flex-1 bg-brand-border" />
-              </motion.div>
+        {/* Menu Categories Grid with Fluid AnimatePresence masking */}
+        <div className="space-y-16 sm:space-y-24 mt-8">
+          <AnimatePresence mode="popLayout">
+            {filteredCategories.map((category) => {
+              const sectionId = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+              return (
+              <motion.section 
+                id={sectionId}
+                key={category.name}
+                initial={ANIMATIONS_ENABLED ? { opacity: 0, scale: 0.98, y: 20 } : undefined}
+                animate={ANIMATIONS_ENABLED ? { opacity: 1, scale: 1, y: 0 } : undefined}
+                exit={ANIMATIONS_ENABLED ? { opacity: 0, scale: 0.95, filter: 'blur(8px)' } : undefined}
+                transition={{ duration: 0.4 }}
+                className="relative"
+              >
+                {/* Category Header */}
+                <div className="mb-6 flex items-center justify-between sm:mb-8">
+                  <h2 className="font-heading text-2xl font-bold text-brand-text-primary sm:text-3xl">
+                    {category.name}
+                  </h2>
+                  <div className="ml-4 h-[1px] flex-1 bg-brand-border sm:ml-6" />
+                </div>
 
-              {/* Dish Grid */}
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-                {category.items.map((item) => (
-                  <motion.article
-                    variants={scrollEntrance}
-                    key={item.id}
-                    className="flex w-full"
-                  >
-                    {/* Reusing our highly-optimized DishCard! */}
-                    <DishCard dish={item as DishData} />
-                  </motion.article>
-                ))}
-              </div>
-            </motion.section>
-            );
-          })}
+                {/* Dish Grid: 2-col app-like density on mobile! */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+                  {category.items.map((item) => (
+                    <article
+                      key={item.id}
+                      className="flex w-full"
+                    >
+                      <DishCard dish={item as DishData} />
+                    </article>
+                  ))}
+                </div>
+              </motion.section>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
       </motion.div>
