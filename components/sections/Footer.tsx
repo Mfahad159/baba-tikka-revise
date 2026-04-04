@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { ArrowUp, Phone, Mail, Clock } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
-import { ANIMATIONS_ENABLED, mobileStaggerContainer, mobileScrollEntrance, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { ANIMATIONS_ENABLED, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Clean native SVGs matching lucide props to replace stripped brand icons

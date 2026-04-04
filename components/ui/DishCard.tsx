@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Star, ShoppingCart, Check, Minus, Plus, Flame, TrendingUp } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { formatPKR } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/useIsMobile';
 
 export interface DishData {
   id: string;
@@ -35,7 +34,6 @@ function StarRating({ rating }: { rating: number }) {
 
 export function DishCard({ dish }: DishCardProps) {
   const { cartItems, addToCart, updateQuantity } = useCart();
-  const isMobile = useIsMobile();
   const [justAdded, setJustAdded] = useState(false);
   
   const existing = cartItems.find((i) => i.id === dish.id);
