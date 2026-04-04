@@ -15,9 +15,9 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={pathname}
-          initial={ANIMATIONS_ENABLED ? { opacity: 0 } : false}
-          animate={ANIMATIONS_ENABLED ? { opacity: 1 } : false}
-          exit={ANIMATIONS_ENABLED ? { opacity: 0 } : false}
+          initial={ANIMATIONS_ENABLED ? { opacity: 0 } : undefined}
+          animate={ANIMATIONS_ENABLED ? { opacity: 1 } : undefined}
+          exit={ANIMATIONS_ENABLED ? { opacity: 0 } : undefined}
           transition={{ duration: 0.15, ease: 'easeInOut' }}
           className="flex flex-1 flex-col"
         >

@@ -130,7 +130,7 @@ export function NavBarClient() {
                       stiffness: 400, 
                       damping: 20,
                       duration: isMobile ? 0.15 : 0.25
-                    }}
+                    } as any}
                     className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent-gold font-body text-[9px] font-bold text-brand-text-primary shadow-sm"
                   >
                     {totalItems}
