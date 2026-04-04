@@ -125,12 +125,14 @@ export function NavBarClient() {
                     initial={{ scale: isMobile ? 1 : 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ 
-                      type: isMobile ? 'tween' : 'spring', 
+                    transition={isMobile ? { 
+                      type: 'tween', 
+                      duration: 0.15 
+                    } : { 
+                      type: 'spring', 
                       stiffness: 400, 
-                      damping: 20,
-                      duration: isMobile ? 0.15 : 0.25
-                    } as any}
+                      damping: 20 
+                    }}
                     className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent-gold font-body text-[9px] font-bold text-brand-text-primary shadow-sm"
                   >
                     {totalItems}
