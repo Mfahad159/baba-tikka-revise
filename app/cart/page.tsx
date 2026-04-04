@@ -9,11 +9,13 @@ import { NavBar } from '@/components/sections/NavBar';
 import { useCart } from '@/hooks/useCart';
 import { formatPKR } from '@/lib/utils';
 import { ANIMATIONS_ENABLED } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const DELIVERY_FEE = 150;
 
 export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, clearCart, totalPrice } = useCart();
+  const isMobile = useIsMobile();
   const [mounted, setMounted] = useState(false);
   const [ordering, setOrdering] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -113,10 +115,10 @@ export default function CartPage() {
                 <motion.div
                   key={item.id}
                   layout={ANIMATIONS_ENABLED}
-                  initial={ANIMATIONS_ENABLED ? { opacity: 0, scale: 0.95 } : {}}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={ANIMATIONS_ENABLED ? { opacity: 0, x: -20, scale: 0.95 } : {}}
-                  transition={{ duration: 0.25, ease: 'easeOut' }}
+                  initial={ANIMATIONS_ENABLED ? { opacity: 0, y: isMobile ? 10 : 20 } : {}}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={ANIMATIONS_ENABLED ? { opacity: 0, x: isMobile ? -10 : -20 } : {}}
+                  transition={{ duration: 0.2, ease: 'easeOut' }} // SNAPPY
                   className="flex flex-row items-center gap-4 rounded-2xl border border-brand-border bg-brand-bg-secondary p-4 dark:border-brand-border-dark dark:bg-brand-bg-secondary-dark sm:p-5"
                 >
                   {/* Thumbnail */}

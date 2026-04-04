@@ -4,7 +4,8 @@
 // the design to match the dark Ichiban-style aesthetic from Phase A audit.
 
 import { motion } from 'framer-motion';
-import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface Testimonial {
   id: string;
@@ -74,16 +75,20 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 }
 
 export function TestimonialsSection() {
+  const isMobile = useIsMobile();
+  
   const headerProps = ANIMATIONS_ENABLED
     ? {
         initial: 'hidden',
         whileInView: 'visible',
-        viewport: { once: true, margin: '-50px' },
-        variants: staggerContainer,
+        viewport: { once: true, amount: 0.2 },
+        variants: isMobile ? mobileStaggerContainer : staggerContainer,
       }
     : {};
 
-  const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
+  const childProps = ANIMATIONS_ENABLED 
+    ? { variants: isMobile ? mobileScrollEntrance : scrollEntrance } 
+    : {};
 
   return (
     <section id="testimonials" className="overflow-hidden bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.05)] transition-colors duration-300 dark:bg-brand-bg-secondary-dark dark:shadow-[inset_0_20px_40px_rgba(0,0,0,0.4)]">

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { ANIMATIONS_ENABLED } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const SLIDE_IMAGES = [
   '/hero-image-slideshow/1.webp',
@@ -42,6 +43,7 @@ const EASE_OUT = 'easeOut' as const;
 const EASE_IN = 'easeIn' as const;
 
 export function HeroSection() {
+  const isMobile = useIsMobile();
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -59,7 +61,15 @@ export function HeroSection() {
 
   const entry = (delay: number) =>
     ANIMATIONS_ENABLED
-      ? { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.65, ease: EASE_OUT, delay } }
+      ? { 
+          initial: { opacity: 0, y: isMobile ? 12 : 20 }, // PERFORMANCE: Reduced Y lift
+          animate: { opacity: 1, y: 0 }, 
+          transition: { 
+            duration: isMobile ? 0.4 : 0.6, 
+            ease: EASE_OUT, 
+            delay: isMobile ? delay * 0.5 : delay // SNAPPY: Faster sequence on mobile
+          } 
+        }
       : {};
 
   return (
@@ -70,7 +80,11 @@ export function HeroSection() {
 
       {/* Book Reservation floating pill */}
       <motion.div
-        {...(ANIMATIONS_ENABLED ? { initial: { opacity: 0, y: -12 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.5, duration: 0.5, ease: EASE_OUT } } : {})}
+        {...(ANIMATIONS_ENABLED ? { 
+          initial: { opacity: 0, y: -10 }, 
+          animate: { opacity: 1, y: 0 }, 
+          transition: { delay: 0.4, duration: 0.4, ease: EASE_OUT } 
+        } : {})}
         className="absolute right-8 top-24 z-20 hidden md:block"
       >
         <Link
@@ -102,7 +116,7 @@ export function HeroSection() {
           <motion.div {...entry(0.36)} className="mt-8 flex justify-center lg:justify-start">
             <Link
               href={HERO_COPY.cta.href}
-              className="inline-flex items-center gap-2 rounded-full bg-brand-accent-gold px-7 py-3.5 font-body text-sm font-semibold text-brand-bg-primary shadow-lg shadow-brand-accent-gold/30 transition-all hover:brightness-105 active:scale-95 dark:bg-brand-accent-gold-dark dark:text-brand-bg-primary-dark dark:shadow-brand-accent-gold-dark/30 dark:hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-full bg-brand-accent-gold px-7 py-3.5 font-body text-sm font-semibold text-brand-bg-primary shadow-lg shadow-brand-accent-gold/30 transition-all hover:brightness-105 sm:active:scale-95 dark:bg-brand-accent-gold-dark dark:text-brand-bg-primary-dark dark:shadow-brand-accent-gold-dark/30 dark:hover:brightness-110"
             >
               {HERO_COPY.cta.label}
               <ArrowRight size={15} />
@@ -145,10 +159,11 @@ export function HeroSection() {
             <AnimatePresence mode="sync">
               <motion.div
                 key={current}
-                initial={{ opacity: 0, scale: 1.06 }}
-                animate={{ opacity: 1, scale: 1, transition: { duration: 0.75, ease: EASE_OUT } }}
-                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.4, ease: EASE_IN } }}
+                initial={{ opacity: 0, scale: isMobile ? 1 : 1.04 }} // PERFORMANCE: No scale on mobile
+                animate={{ opacity: 1, scale: 1, transition: { duration: 0.5, ease: EASE_OUT } }} // Snappier
+                exit={{ opacity: 0, scale: isMobile ? 1 : 0.98, transition: { duration: 0.2, ease: EASE_IN } }} // LUXURY: Fast exit
                 className="absolute inset-0"
+                style={{ willChange: isMobile ? 'opacity' : 'transform, opacity' }}
               >
                 <Image
                   src={SLIDE_IMAGES[current]}

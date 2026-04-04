@@ -6,8 +6,9 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
 import { DishCard, DishData } from '@/components/ui/DishCard';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const MENU_ITEMS: DishData[] = [
   {
@@ -44,16 +45,20 @@ const MENU_ITEMS: DishData[] = [
 ];
 
 export function MenuHighlights() {
+  const isMobile = useIsMobile();
+
   const containerProps = ANIMATIONS_ENABLED
     ? {
-        variants: staggerContainer,
+        variants: isMobile ? mobileStaggerContainer : staggerContainer,
         initial: 'hidden',
         whileInView: 'visible',
-        viewport: { once: true, margin: '-50px' },
+        viewport: { once: true, amount: 0.2 }, // LUXURY: Trigger exact when visible
       }
     : {};
-
-  const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
+  
+  const childProps = ANIMATIONS_ENABLED 
+    ? { variants: isMobile ? mobileScrollEntrance : scrollEntrance } 
+    : {};
 
   return (
     <section id="menu" className="bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.05)] transition-colors duration-300 dark:bg-brand-bg-secondary-dark dark:shadow-[inset_0_20px_40px_rgba(0,0,0,0.4)]">
@@ -102,7 +107,7 @@ export function MenuHighlights() {
         <motion.div {...childProps} className="mt-14 text-center">
           <Link
             href="/menu" // TODO: connect to full menu page when available
-            className="inline-flex items-center gap-2 rounded-full border border-brand-accent-gold/40 px-8 py-3.5 font-body text-sm font-semibold text-brand-accent-gold transition-all hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-accent-gold-dark/40 dark:text-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
+            className="inline-flex items-center gap-2 rounded-full border border-brand-accent-gold/40 px-8 py-3.5 font-body text-sm font-semibold text-brand-accent-gold transition-all hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold sm:active:scale-95 dark:border-brand-accent-gold-dark/40 dark:text-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
           >
             View Full Menu
             <span aria-hidden>→</span>

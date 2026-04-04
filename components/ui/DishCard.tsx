@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Star, ShoppingCart, Check, Minus, Plus, Flame, TrendingUp } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { formatPKR } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export interface DishData {
   id: string;
@@ -34,6 +35,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function DishCard({ dish }: DishCardProps) {
   const { cartItems, addToCart, updateQuantity } = useCart();
+  const isMobile = useIsMobile();
   const [justAdded, setJustAdded] = useState(false);
   
   const existing = cartItems.find((i) => i.id === dish.id);
@@ -57,7 +59,7 @@ export function DishCard({ dish }: DishCardProps) {
 
   return (
     // Card Wrapper
-    <div className="group relative flex w-full flex-1 flex-col overflow-hidden rounded-2xl border border-brand-border bg-brand-bg-elevated transition-all duration-300 hover:-translate-y-[2px] hover:border-brand-accent-gold/40 hover:shadow-xl hover:shadow-brand-accent-gold/5 dark:border-brand-border-dark dark:bg-brand-bg-elevated-dark dark:hover:border-brand-accent-gold-dark/40 dark:hover:shadow-brand-accent-gold-dark/5">
+    <div className="group relative flex w-full flex-1 flex-col overflow-hidden rounded-2xl border border-brand-border bg-brand-bg-elevated transition-colors duration-300 sm:hover:-translate-y-1 sm:hover:border-brand-accent-gold/40 sm:hover:shadow-xl sm:hover:shadow-brand-accent-gold/5 dark:border-brand-border-dark dark:bg-brand-bg-elevated-dark dark:sm:hover:border-brand-accent-gold-dark/40 dark:sm:hover:shadow-brand-accent-gold-dark/5">
       
       {/* Signature Anchor Badge / Overlay Tags */}
       {dish.isSignature && (
@@ -73,7 +75,7 @@ export function DishCard({ dish }: DishCardProps) {
           alt={dish.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-700 sm:group-hover:scale-[1.03]"
         />
         <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-brand-bg-elevated to-transparent opacity-100 dark:from-brand-bg-elevated-dark sm:h-16" />
       </div>
@@ -157,7 +159,7 @@ export function DishCard({ dish }: DishCardProps) {
             ) : (
               <button
                 onClick={handleAdd}
-                className="flex h-full w-full items-center justify-center gap-1.5 rounded-full border border-brand-accent-gold/50 bg-transparent px-3 font-body text-[11px] font-medium text-brand-accent-gold transition-colors hover:bg-brand-accent-gold/10 active:scale-95 dark:border-brand-accent-gold-dark/50 dark:text-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 sm:w-auto sm:border-brand-border sm:bg-brand-text-primary/5 sm:px-4 sm:text-xs sm:text-brand-text-primary sm:hover:border-brand-accent-gold/50 sm:hover:text-brand-accent-gold dark:sm:border-brand-border-dark dark:sm:bg-brand-text-primary-dark/5 dark:sm:text-brand-text-primary-dark dark:sm:hover:border-brand-accent-gold-dark/50 dark:sm:hover:text-brand-accent-gold-dark"
+                className="flex h-full w-full items-center justify-center gap-1.5 rounded-full border border-brand-accent-gold/50 bg-transparent px-3 font-body text-[11px] font-medium text-brand-accent-gold transition-colors hover:bg-brand-accent-gold/10 sm:active:scale-95 dark:border-brand-accent-gold-dark/50 dark:text-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 sm:w-auto sm:border-brand-border sm:bg-brand-text-primary/5 sm:px-4 sm:text-xs sm:text-brand-text-primary sm:hover:border-brand-accent-gold/50 sm:hover:text-brand-accent-gold dark:sm:border-brand-border-dark dark:sm:bg-brand-text-primary-dark/5 dark:sm:text-brand-text-primary-dark dark:sm:hover:border-brand-accent-gold-dark/50 dark:sm:hover:text-brand-accent-gold-dark"
               >
                 <ShoppingCart size={13} className="sm:h-3.5 sm:w-3.5" />
                 Add to Cart

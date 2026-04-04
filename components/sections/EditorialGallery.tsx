@@ -3,7 +3,8 @@
 // EditorialGallery
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const GALLERY_IMAGES = [
   {
@@ -27,16 +28,20 @@ const GALLERY_IMAGES = [
 ];
 
 export function EditorialGallery() {
+  const isMobile = useIsMobile();
+
   const containerProps = ANIMATIONS_ENABLED
     ? {
-        variants: staggerContainer,
+        variants: isMobile ? mobileStaggerContainer : staggerContainer,
         initial: 'hidden',
         whileInView: 'visible',
-        viewport: { once: true, margin: '-100px' },
+        viewport: { once: true, amount: 0.2 },
       }
     : {};
 
-  const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
+  const childProps = ANIMATIONS_ENABLED 
+    ? { variants: isMobile ? mobileScrollEntrance : scrollEntrance } 
+    : {};
 
   return (
     <section className="relative overflow-hidden bg-brand-bg-primary dark:bg-brand-bg-primary-dark transition-colors duration-300 px-6 py-16 sm:px-8 lg:px-12 lg:py-28">
@@ -69,7 +74,7 @@ export function EditorialGallery() {
                 alt={img.alt}
                 fill
                 sizes={img.className.includes('md:col-span-2') ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
-                className="object-cover transition-transform duration-[2.5s] ease-out group-hover:scale-[1.05]"
+                className="object-cover transition-transform duration-[2.5s] ease-out sm:group-hover:scale-[1.05]"
               />
               
               {/* Premium Inner Shadow Overlay */}

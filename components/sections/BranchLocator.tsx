@@ -4,7 +4,8 @@
 // Applied Phase A design tokens: brand.bg.primary alternating background with Framer scroll exits.
 
 import { motion } from 'framer-motion';
-import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface Branch {
   id: string;
@@ -46,16 +47,20 @@ const BRANCHES: Branch[] = [
 ];
 
 export function BranchLocator() {
+  const isMobile = useIsMobile();
+
   const containerProps = ANIMATIONS_ENABLED
     ? {
-        variants: staggerContainer,
+        variants: isMobile ? mobileStaggerContainer : staggerContainer,
         initial: 'hidden',
         whileInView: 'visible',
-        viewport: { once: true, margin: '-50px' },
+        viewport: { once: true, amount: 0.2 },
       }
     : {};
 
-  const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
+  const childProps = ANIMATIONS_ENABLED 
+    ? { variants: isMobile ? mobileScrollEntrance : scrollEntrance } 
+    : {};
 
   return (
     <section id="branches" className="bg-brand-bg-primary py-24 transition-colors duration-300 dark:bg-brand-bg-primary-dark">
@@ -84,7 +89,7 @@ export function BranchLocator() {
               key={branch.id}
               className="group flex flex-col rounded-2xl border border-brand-border bg-brand-bg-elevated p-6 transition-colors hover:border-brand-accent-gold/40 dark:border-brand-border-dark dark:bg-brand-bg-elevated-dark dark:hover:border-brand-accent-gold-dark/40 sm:p-8"
             >
-              <span className="mb-4 inline-block h-2 w-2 rounded-full bg-brand-accent-gold transition-transform group-hover:scale-125 dark:bg-brand-accent-gold-dark" />
+              <span className="mb-4 inline-block h-2 w-2 rounded-full bg-brand-accent-gold transition-transform sm:group-hover:scale-125 dark:bg-brand-accent-gold-dark" />
 
               <h3 className="font-heading text-xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark">
                 {branch.name}

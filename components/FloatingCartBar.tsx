@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { formatPKR } from '@/lib/utils';
 import { ANIMATIONS_ENABLED } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export function FloatingCartBar() {
   const [isMounted, setIsMounted] = useState(false);
@@ -14,6 +15,7 @@ export function FloatingCartBar() {
   const prevItemsRef = useRef(0);
   
   const { totalItems, totalPrice } = useCart();
+  const isMobile = useIsMobile();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -46,10 +48,11 @@ export function FloatingCartBar() {
           animate={ANIMATIONS_ENABLED ? { 
             y: 0, 
             opacity: 1, 
-            scale: pulse ? 0.98 : 1, // Inverse pulse creating a slight "press" pop
+            scale: (pulse && !isMobile) ? 0.98 : 1, // PERFORMANCE: No scale on mobile
           } : undefined}
           exit={ANIMATIONS_ENABLED ? { y: 100, opacity: 0 } : undefined}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          transition={{ duration: 0.25, ease: 'easeOut' }} // SNAPPY: Fast entry
+          style={{ willChange: 'transform, opacity' }}
           onClick={() => router.push('/cart')}
           className={`fixed bottom-0 left-0 right-0 z-50 cursor-pointer rounded-t-[28px] pb-[env(safe-area-inset-bottom)] transition-all duration-300 hover:brightness-105 active:scale-[0.99] ${
             pulse ? 'shadow-[0_-8px_30px_rgba(200,150,62,0.15)]' : 'shadow-[0_-8px_24px_rgba(0,0,0,0.5)]'
@@ -62,10 +65,10 @@ export function FloatingCartBar() {
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={totalItems}
-                  initial={ANIMATIONS_ENABLED ? { y: 15, opacity: 0 } : undefined}
+                  initial={ANIMATIONS_ENABLED ? { y: isMobile ? 10 : 15, opacity: 0 } : undefined}
                   animate={ANIMATIONS_ENABLED ? { y: 0, opacity: 1 } : undefined}
-                  exit={ANIMATIONS_ENABLED ? { y: -15, opacity: 0, position: 'absolute' } : undefined}
-                  transition={{ duration: 0.2 }}
+                  exit={ANIMATIONS_ENABLED ? { y: isMobile ? -10 : -15, opacity: 0, position: 'absolute' } : undefined}
+                  transition={{ duration: 0.15 }}
                   className="font-body text-base font-bold text-brand-bg-primary"
                 >
                   {totalItems}

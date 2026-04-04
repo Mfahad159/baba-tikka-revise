@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { NavBar } from '@/components/sections/NavBar';
 import { DishCard, DishData } from '@/components/ui/DishCard';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const MENU_CATEGORIES = [
   {
@@ -46,21 +47,25 @@ const MENU_CATEGORIES = [
 ];
 
 export default function MenuPage() {
+  const isMobile = useIsMobile();
   const [activeCategory, setActiveCategory] = useState<string>('All');
   
   const filteredCategories = activeCategory === 'All' 
     ? MENU_CATEGORIES 
     : MENU_CATEGORIES.filter(c => c.name === activeCategory);
-
+ 
+  // PERFORMANCE: Reduced stagger and Y lift for mobile
   const containerProps = ANIMATIONS_ENABLED
     ? {
-        variants: staggerContainer,
+        variants: isMobile ? mobileStaggerContainer : staggerContainer,
         initial: 'hidden',
         animate: 'visible',
       }
     : {};
 
-  const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
+  const childProps = ANIMATIONS_ENABLED 
+    ? { variants: isMobile ? mobileScrollEntrance : scrollEntrance } 
+    : {};
 
   return (
     <main id="menu" className="min-h-[100svh] bg-brand-bg-primary pb-24 pt-28 transition-colors duration-300 dark:bg-brand-bg-primary-dark">
@@ -85,7 +90,8 @@ export default function MenuPage() {
         </motion.div>
 
         {/* ⚠️ TAGS NOW INTERACTIVE — Interactive Filter Pill System */}
-        <motion.div {...childProps} className="scrollbar-hide sticky top-[88px] z-30 -mx-4 mb-4 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/95 px-4 py-4 backdrop-blur-md dark:bg-brand-bg-primary-dark/95 sm:mx-0 sm:justify-center sm:gap-3 sm:px-0">
+        {/* PERFORMANCE: Replaced motion.div with pure CSS for scroll container to avoid compositor conflicts */}
+        <div className="scrollbar-hide sticky top-[88px] z-30 -mx-4 mb-4 flex items-center gap-2 overflow-x-auto bg-brand-bg-primary/95 px-4 py-4 backdrop-blur-md transition-opacity duration-300 dark:bg-brand-bg-primary-dark/95 sm:mx-0 sm:justify-center sm:gap-3 sm:px-0">
           <button
             onClick={() => setActiveCategory('All')}
             className={[
@@ -105,7 +111,6 @@ export default function MenuPage() {
                 key={category.name}
                 onClick={() => {
                   setActiveCategory(category.name);
-                  // Ensure we scroll slightly to lock the tags grid perfectly to the top of the header safely
                   window.scrollTo({ top: 400, behavior: 'smooth' });
                 }}
                 className={[
@@ -119,7 +124,7 @@ export default function MenuPage() {
               </button>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Menu Categories Grid with Fluid AnimatePresence masking */}
         <div className="space-y-16 sm:space-y-24 mt-8">
@@ -130,10 +135,10 @@ export default function MenuPage() {
               <motion.section 
                 id={sectionId}
                 key={category.name}
-                initial={ANIMATIONS_ENABLED ? { opacity: 0, scale: 0.98, y: 20 } : undefined}
-                animate={ANIMATIONS_ENABLED ? { opacity: 1, scale: 1, y: 0 } : undefined}
-                exit={ANIMATIONS_ENABLED ? { opacity: 0, scale: 0.95, filter: 'blur(8px)' } : undefined}
-                transition={{ duration: 0.4 }}
+                initial={ANIMATIONS_ENABLED ? { opacity: 0, y: isMobile ? 12 : 20 } : undefined}
+                animate={ANIMATIONS_ENABLED ? { opacity: 1, y: 0 } : undefined}
+                exit={ANIMATIONS_ENABLED ? { opacity: 0 } : undefined} // PERFORMANCE: No blur or scale on exit
+                transition={{ duration: 0.25 }}
                 className="relative"
               >
                 {/* Category Header */}

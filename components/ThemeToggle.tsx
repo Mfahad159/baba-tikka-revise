@@ -5,9 +5,11 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ANIMATIONS_ENABLED } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
+  const isMobile = useIsMobile();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => setMounted(true), []);
@@ -29,22 +31,24 @@ export function ThemeToggle() {
         {isDark ? (
           <motion.div
             key="sun"
-            initial={ANIMATIONS_ENABLED ? { opacity: 0, rotate: -90 } : undefined}
+            initial={ANIMATIONS_ENABLED ? { opacity: 0, rotate: isMobile ? 0 : -90 } : undefined}
             animate={ANIMATIONS_ENABLED ? { opacity: 1, rotate: 0 } : undefined}
-            exit={ANIMATIONS_ENABLED ? { opacity: 0, rotate: 90 } : undefined}
-            transition={{ duration: 0.2 }}
+            exit={ANIMATIONS_ENABLED ? { opacity: 0, rotate: isMobile ? 0 : 90 } : undefined}
+            transition={{ duration: 0.15 }} // Snappy: faster icons
             className="absolute"
+            style={{ willChange: 'transform, opacity' }}
           >
             <Sun size={20} />
           </motion.div>
         ) : (
           <motion.div
             key="moon"
-            initial={ANIMATIONS_ENABLED ? { opacity: 0, rotate: 90 } : undefined}
+            initial={ANIMATIONS_ENABLED ? { opacity: 0, rotate: isMobile ? 0 : 90 } : undefined}
             animate={ANIMATIONS_ENABLED ? { opacity: 1, rotate: 0 } : undefined}
-            exit={ANIMATIONS_ENABLED ? { opacity: 0, rotate: -90 } : undefined}
-            transition={{ duration: 0.2 }}
+            exit={ANIMATIONS_ENABLED ? { opacity: 0, rotate: isMobile ? 0 : -90 } : undefined}
+            transition={{ duration: 0.15 }} // Snappy
             className="absolute"
+            style={{ willChange: 'transform, opacity' }}
           >
             <Moon size={20} />
           </motion.div>

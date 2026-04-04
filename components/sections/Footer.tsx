@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { ArrowUp, Phone, Mail, Clock } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
+import { ANIMATIONS_ENABLED, mobileStaggerContainer, mobileScrollEntrance, staggerContainer, scrollEntrance } from '@/lib/animations';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Clean native SVGs matching lucide props to replace stripped brand icons
 const Facebook = ({ size = 18 }) => (
@@ -24,7 +26,6 @@ const Twitter = ({ size = 18 }) => (
     <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
   </svg>
 );
-import { ANIMATIONS_ENABLED } from '@/lib/animations';
 
 const FOOTER_CONTENT = {
   tagline: "Serving delicious food since 1987",
@@ -64,6 +65,7 @@ const childVariants: Variants = {
 };
 
 export function Footer() {
+  const isMobile = useIsMobile();
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -74,22 +76,32 @@ export function Footer() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  const containerProps = ANIMATIONS_ENABLED 
+    ? {
+        variants: isMobile ? mobileStaggerContainer : containerVariants,
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: { once: true, amount: 0.2 }
+      }
+    : {};
+
+  const childProps = ANIMATIONS_ENABLED 
+    ? { variants: isMobile ? mobileScrollEntrance : childVariants } 
+    : {};
+
   return (
     <footer className="relative mt-auto overflow-hidden bg-brand-bg-primary pt-16 transition-colors duration-300 dark:bg-brand-bg-primary-dark sm:pt-24 shrink-0 border-t border-brand-accent-gold/20 dark:border-brand-accent-gold-dark/20">
       {/* Subtle top edge gradient fade */}
       <div className="absolute left-0 top-0 h-[1px] w-full bg-[linear-gradient(90deg,transparent_0%,rgba(200,150,62,0.4)_50%,transparent_100%)] dark:bg-[linear-gradient(90deg,transparent_0%,rgba(160,120,64,0.3)_50%,transparent_100%)]" />
 
       <motion.div
-        variants={ANIMATIONS_ENABLED ? containerVariants : {}}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-50px' }}
+        {...containerProps}
         className="mx-auto max-w-7xl px-6 pb-12 sm:px-8 lg:px-12"
       >
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           
           {/* Col 1: Brand */}
-          <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left">
+          <motion.div {...childProps} className="flex flex-col items-center md:items-start text-center md:text-left">
             <Logo className="text-brand-accent-gold dark:text-brand-accent-gold-dark" />
             <p className="mt-4 font-body text-sm font-medium italic text-brand-text-secondary dark:text-brand-text-secondary-dark">
               &quot;{FOOTER_CONTENT.tagline}&quot;
@@ -101,7 +113,7 @@ export function Footer() {
           </motion.div>
 
           {/* Col 2: Quick Links */}
-          <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left lg:pl-8">
+          <motion.div {...childProps} className="flex flex-col items-center md:items-start text-center md:text-left lg:pl-8">
             <h3 className="font-heading text-lg font-bold tracking-wide text-brand-accent-gold dark:text-brand-accent-gold-dark">
               Quick Links
             </h3>
@@ -122,7 +134,7 @@ export function Footer() {
           </motion.div>
 
           {/* Col 3: Contact Info */}
-          <motion.div variants={childVariants} className="flex flex-col items-center md:items-start text-center md:text-left">
+          <motion.div {...childProps} className="flex flex-col items-center md:items-start text-center md:text-left">
             <h3 className="font-heading text-lg font-bold tracking-wide text-brand-accent-gold dark:text-brand-accent-gold-dark">
               Contact
             </h3>
@@ -152,40 +164,40 @@ export function Footer() {
           </motion.div>
 
           {/* Col 4: Follow Us */}
-          <motion.div variants={childVariants} className="flex flex-col items-center justify-between text-center md:items-start md:text-left">
+          <motion.div {...childProps} className="flex flex-col items-center justify-between text-center md:items-start md:text-left">
             <div>
               <h3 className="font-heading text-lg font-bold tracking-wide text-brand-accent-gold dark:text-brand-accent-gold-dark">
                 Follow Us
               </h3>
               <div className="mb-6 mt-2 mx-auto h-[2px] w-6 bg-brand-accent-gold dark:bg-brand-accent-gold-dark md:mx-0" />
               <div className="flex items-center gap-4">
-                <a
-                  href={FOOTER_CONTENT.social.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={18} />
-                </a>
-                <a
-                  href={FOOTER_CONTENT.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
-                  aria-label="Instagram"
-                >
-                  <Instagram size={18} />
-                </a>
-                <a
-                  href={FOOTER_CONTENT.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
-                  aria-label="Twitter"
-                >
-                  <Twitter size={18} />
-                </a>
+                  <a
+                    href={FOOTER_CONTENT.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 sm:hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold sm:active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
+                    aria-label="Facebook"
+                  >
+                    <Facebook size={18} />
+                  </a>
+                  <a
+                    href={FOOTER_CONTENT.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 sm:hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold sm:active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
+                    aria-label="Instagram"
+                  >
+                    <Instagram size={18} />
+                  </a>
+                  <a
+                    href={FOOTER_CONTENT.social.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-brand-border text-brand-text-secondary transition-all duration-300 sm:hover:scale-110 hover:border-brand-accent-gold hover:bg-brand-accent-gold/10 hover:text-brand-accent-gold sm:active:scale-95 dark:border-brand-border-dark dark:text-brand-text-secondary-dark dark:hover:border-brand-accent-gold-dark dark:hover:bg-brand-accent-gold-dark/10 dark:hover:text-brand-accent-gold-dark"
+                    aria-label="Twitter"
+                  >
+                    <Twitter size={18} />
+                  </a>
               </div>
             </div>
           </motion.div>

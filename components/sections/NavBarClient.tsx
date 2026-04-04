@@ -11,6 +11,7 @@ import { Menu, X, ShoppingCart } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useCart } from '@/hooks/useCart';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/#home', sectionId: 'home' },
@@ -27,6 +28,7 @@ export function NavBarClient() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
   const { totalItems } = useCart();
+  const isMobile = useIsMobile();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -64,6 +66,7 @@ export function NavBarClient() {
     <>
       <div className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-3 sm:px-6">
         <header
+          style={{ willChange: 'transform, opacity' }}
           className={`w-full max-w-5xl rounded-full border px-5 py-2.5 transition-all duration-300 ease-in-out ${
             scrolled
               ? 'border-brand-accent-gold/20 bg-brand-bg-primary/90 shadow-[0_4px_32px_rgba(0,0,0,0.05)] backdrop-blur-xl dark:border-brand-accent-gold-dark/20 dark:bg-brand-bg-primary-dark/80 dark:shadow-[0_4px_32px_rgba(0,0,0,0.4)]'
@@ -94,7 +97,11 @@ export function NavBarClient() {
                       <motion.span
                         layoutId="nav-active-pill"
                         className="absolute inset-0 rounded-full bg-brand-text-primary/10 ring-1 ring-brand-text-primary/15 dark:bg-brand-text-primary-dark/10 dark:ring-brand-text-primary-dark/15"
-                        transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+                        transition={{ 
+                          type: 'spring', 
+                          stiffness: 250, // PERFORMANCE: Reduced from 380 for fewer frame calculations
+                          damping: 30 
+                        }}
                       />
                     )}
                     <span className="relative">{link.label}</span>
@@ -115,9 +122,15 @@ export function NavBarClient() {
                 {totalItems > 0 && (
                   <motion.span
                     key={totalItems}
-                    initial={{ scale: 0.5, opacity: 0 }}
+                    initial={{ scale: isMobile ? 1 : 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ 
+                      type: isMobile ? 'tween' : 'spring', 
+                      stiffness: 400, 
+                      damping: 20,
+                      duration: isMobile ? 0.15 : 0.25
+                    }}
                     className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-accent-gold font-body text-[9px] font-bold text-brand-text-primary shadow-sm"
                   >
                     {totalItems}
@@ -153,6 +166,7 @@ export function NavBarClient() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={close}
               className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden"
             />
@@ -161,7 +175,7 @@ export function NavBarClient() {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }} // PERFORMANCE: Reduced stiffness for mobile
               className="fixed inset-y-0 right-0 z-50 flex w-72 flex-col bg-brand-bg-primary px-8 py-20 shadow-2xl dark:bg-brand-bg-primary-dark md:hidden"
             >
               <button
