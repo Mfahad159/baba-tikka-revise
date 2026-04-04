@@ -9,20 +9,21 @@ import { MenuHighlights } from '@/components/sections/MenuHighlights';
 import { BranchLocator } from '@/components/sections/BranchLocator';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { ClientBootLoader } from '@/components/ClientBootLoader';
+import PageTransition from '@/components/PageTransition';
 
 export default function HomePage() {
   return (
-    <>
+    <PageTransition>
       <ClientBootLoader />
       <NavBar />
-      <main>
+      <main className="flex flex-col">
         {/* Section IDs must match NavBarClient NAV_LINKS sectionId values */}
-        <div id="home"><HeroSection /></div>
-        <EditorialGallery />
-        <div id="menu"><MenuHighlights /></div>
-        <div id="branches"><BranchLocator /></div>
-        <div id="testimonials"><TestimonialsSection /></div>
+        <div key="section-home" id="home"><HeroSection /></div>
+        <EditorialGallery key="section-gallery" />
+        <div key="section-menu" id="menu"><MenuHighlights /></div>
+        <div key="section-branches" id="branches"><BranchLocator /></div>
+        <div key="section-testimonials" id="testimonials"><TestimonialsSection /></div>
       </main>
-    </>
+    </PageTransition>
   );
 }

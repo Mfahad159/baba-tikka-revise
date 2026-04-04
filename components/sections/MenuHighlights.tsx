@@ -65,17 +65,17 @@ export function MenuHighlights() {
       <motion.div {...containerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section header */}
-        <motion.div {...childProps} className="mb-14 text-center">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
+        <motion.div key="header" {...childProps} className="mb-14 text-center">
+          <p key="highlight-label" className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             Our Specialties
           </p>
-          <div className="relative inline-block">
+          <div key="highlight-title-wrapper" className="relative inline-block">
             <h2 className="font-heading text-4xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark lg:text-5xl">
               Menu Highlights
             </h2>
             <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
           </div>
-          <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary dark:text-brand-text-secondary-dark">
+          <p key="highlight-description" className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary dark:text-brand-text-secondary-dark">
             A curated selection of our finest dishes. No endless scrolling—just the absolute best we have to offer.
           </p>
         </motion.div>
@@ -85,7 +85,7 @@ export function MenuHighlights() {
           Mobile: 2 columns, Featured spans both.
           Tablet: 3 columns, Featured spans 2 columns, standard span 1. 
         */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+        <div key="highlight-grid" className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {MENU_ITEMS.slice(0, 3).map((item) => {
             const colSpan = item.isFeatured 
               ? 'col-span-2 lg:col-span-2' 

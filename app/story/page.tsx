@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { NavBar } from '@/components/sections/NavBar';
 import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance } from '@/lib/animations';
+import PageTransition from '@/components/PageTransition';
 
 export default function StoryPage() {
   const containerProps = ANIMATIONS_ENABLED
@@ -17,8 +18,9 @@ export default function StoryPage() {
   const childProps = ANIMATIONS_ENABLED ? { variants: scrollEntrance } : {};
 
   return (
-    <main className="min-h-[100svh] bg-brand-bg-primary dark:bg-brand-bg-primary-dark pb-24 pt-28 transition-colors duration-300">
-      <NavBar />
+    <PageTransition>
+      <main className="min-h-[100svh] bg-brand-bg-primary dark:bg-brand-bg-primary-dark pt-28 transition-colors duration-300">
+        <NavBar />
 
       <motion.div {...containerProps} className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         
@@ -75,6 +77,7 @@ export default function StoryPage() {
         </motion.div>
 
       </motion.div>
-    </main>
+      </main>
+    </PageTransition>
   );
 }

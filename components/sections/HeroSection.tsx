@@ -103,7 +103,7 @@ export function HeroSection() {
             {...entry(0.1)}
             className="max-w-2xl font-heading text-5xl font-bold leading-[1.1] tracking-tight text-brand-text-primary dark:text-brand-text-primary-dark sm:text-6xl md:text-[64px] lg:text-[72px]"
           >
-            {HERO_COPY.headline.map((l, i) => <span key={i} className="block">{l}</span>)}
+            {HERO_COPY.headline.map((l, i) => <span key={`headline-${i}`} className="block">{l}</span>)}
           </motion.h1>
 
           <motion.p
@@ -131,7 +131,7 @@ export function HeroSection() {
             <div className="flex items-center">
               {CUSTOMER_AVATARS.map((a, i) => (
                 <div
-                  key={i}
+                  key={`avatar-${i}`}
                   className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-brand-bg-primary font-body text-xs font-bold text-white dark:border-brand-bg-primary-dark"
                   style={{ backgroundColor: a.color, marginLeft: i > 0 ? '-8px' : '0' }}
                 >

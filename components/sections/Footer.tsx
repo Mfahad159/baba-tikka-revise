@@ -66,9 +66,11 @@ const childVariants: Variants = {
 
 export function Footer() {
   const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -76,7 +78,7 @@ export function Footer() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  const containerProps = ANIMATIONS_ENABLED 
+  const containerProps = mounted && ANIMATIONS_ENABLED 
     ? {
         variants: isMobile ? mobileStaggerContainer : containerVariants,
         initial: "hidden",
@@ -85,7 +87,7 @@ export function Footer() {
       }
     : {};
 
-  const childProps = ANIMATIONS_ENABLED 
+  const childProps = mounted && ANIMATIONS_ENABLED 
     ? { variants: isMobile ? mobileScrollEntrance : childVariants } 
     : {};
 

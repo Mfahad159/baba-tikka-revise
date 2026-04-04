@@ -47,11 +47,11 @@ export function EditorialGallery() {
     <section className="relative overflow-hidden bg-brand-bg-primary dark:bg-brand-bg-primary-dark transition-colors duration-300 px-6 py-16 sm:px-8 lg:px-12 lg:py-28">
       <motion.div {...containerProps} className="relative z-10 mx-auto max-w-7xl">
         {/* Header */}
-        <motion.div {...childProps} className="mb-12 text-center md:mb-16">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
+        <motion.div key="header" {...childProps} className="mb-12 text-center md:mb-16">
+          <p key="gallery-label" className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             Culinary Excellence
           </p>
-          <div className="relative inline-block">
+          <div key="gallery-title-wrapper" className="relative inline-block">
             <h2 className="font-heading text-3xl font-bold text-brand-text-primary dark:text-brand-text-primary-dark sm:text-4xl lg:text-5xl">
               A Symphony of Flavours
             </h2>
@@ -60,10 +60,10 @@ export function EditorialGallery() {
         </motion.div>
 
         {/* Premium Bento Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:h-[650px] md:grid-cols-3 md:grid-rows-2 lg:h-[750px] lg:gap-8">
-          {GALLERY_IMAGES.map((img, i) => (
+        <div key="grid" className="grid grid-cols-1 gap-4 sm:gap-6 md:h-[650px] md:grid-cols-3 md:grid-rows-2 lg:h-[750px] lg:gap-8">
+          {GALLERY_IMAGES.map((img) => (
             <motion.div
-              key={i}
+              key={img.src}
               {...childProps}
               className={`group relative overflow-hidden rounded-3xl bg-brand-bg-secondary dark:bg-brand-bg-secondary-dark ${img.className} ${
                 img.className.includes('md:row-span-2') ? 'aspect-square md:aspect-auto' : 'aspect-[4/3] md:aspect-auto'

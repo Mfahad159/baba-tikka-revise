@@ -6,6 +6,7 @@ import { DishCard, DishData } from '@/components/ui/DishCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ANIMATIONS_ENABLED, staggerContainer, scrollEntrance, mobileStaggerContainer, mobileScrollEntrance } from '@/lib/animations';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import PageTransition from '@/components/PageTransition';
 
 const MENU_CATEGORIES = [
   {
@@ -68,8 +69,9 @@ export default function MenuPage() {
     : {};
 
   return (
-    <main id="menu" className="min-h-[100svh] bg-brand-bg-primary pb-24 pt-28 transition-colors duration-300 dark:bg-brand-bg-primary-dark">
-      <NavBar />
+    <PageTransition>
+      <main id="menu" className="min-h-[100svh] bg-brand-bg-primary pt-28 transition-colors duration-300 dark:bg-brand-bg-primary-dark">
+        <NavBar />
       
       <motion.div {...containerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
@@ -167,6 +169,7 @@ export default function MenuPage() {
         </div>
 
       </motion.div>
-    </main>
+      </main>
+    </PageTransition>
   );
 }

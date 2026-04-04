@@ -66,30 +66,30 @@ export function BranchLocator() {
     <section id="branches" className="bg-brand-bg-primary py-24 transition-colors duration-300 dark:bg-brand-bg-primary-dark">
       <motion.div {...containerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <motion.div {...childProps} className="mb-14 text-center">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
+        <motion.div key="header" {...childProps} className="mb-14 text-center">
+          <p key="header-label" className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             Find Us
           </p>
-          <div className="relative inline-block">
+          <div key="header-title-wrapper" className="relative inline-block">
             <h2 className="font-heading text-4xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark lg:text-5xl">
               Our Branches
             </h2>
-            <span className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
+            <span key="header-underline" className="absolute -bottom-3 left-1/2 h-[2px] w-12 -translate-x-1/2 rounded-full bg-brand-accent-gold dark:bg-brand-accent-gold-dark" />
           </div>
-          <p className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary dark:text-brand-text-secondary-dark">
+          <p key="header-description" className="mx-auto mt-6 max-w-xl font-body text-base text-brand-text-secondary dark:text-brand-text-secondary-dark">
             Four premium locations across Faisalabad — always close to you.
           </p>
         </motion.div>
 
         {/* Branch cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div key="grid" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {BRANCHES.map((branch) => (
             <motion.div
               {...childProps}
               key={branch.id}
               className="group flex flex-col rounded-2xl border border-brand-border bg-brand-bg-elevated p-6 transition-colors hover:border-brand-accent-gold/40 dark:border-brand-border-dark dark:bg-brand-bg-elevated-dark dark:hover:border-brand-accent-gold-dark/40 sm:p-8"
             >
-              <span className="mb-4 inline-block h-2 w-2 rounded-full bg-brand-accent-gold transition-transform sm:group-hover:scale-125 dark:bg-brand-accent-gold-dark" />
+              <span key="card-indicator" className="mb-4 inline-block h-2 w-2 rounded-full bg-brand-accent-gold transition-transform sm:group-hover:scale-125 dark:bg-brand-accent-gold-dark" />
 
               <h3 className="font-heading text-xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark">
                 {branch.name}
@@ -107,8 +107,8 @@ export function BranchLocator() {
                     Delivery
                   </p>
                   <div className="flex flex-col gap-1.5 font-body text-sm font-medium text-brand-text-primary dark:text-brand-text-primary-dark">
-                    {branch.delivery.map((phone, idx) => (
-                      <a key={idx} href={`tel:${phone.replace(/-/g, '')}`} className="transition-colors hover:text-brand-accent-gold dark:hover:text-brand-accent-gold-dark">
+                    {branch.delivery.map((phone) => (
+                      <a key={phone} href={`tel:${phone.replace(/-/g, '')}`} className="transition-colors hover:text-brand-accent-gold dark:hover:text-brand-accent-gold-dark">
                         {phone}
                       </a>
                     ))}
@@ -121,8 +121,8 @@ export function BranchLocator() {
                     Reservation
                   </p>
                   <div className="flex flex-col gap-1.5 font-body text-sm font-medium text-brand-text-primary dark:text-brand-text-primary-dark">
-                    {branch.reservation.map((phone, idx) => (
-                      <a key={idx} href={`tel:${phone.replace(/-/g, '')}`} className="transition-colors hover:text-brand-accent-gold dark:hover:text-brand-accent-gold-dark">
+                    {branch.reservation.map((phone) => (
+                      <a key={phone} href={`tel:${phone.replace(/-/g, '')}`} className="transition-colors hover:text-brand-accent-gold dark:hover:text-brand-accent-gold-dark">
                         {phone}
                       </a>
                     ))}

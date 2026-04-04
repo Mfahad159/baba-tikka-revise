@@ -93,11 +93,11 @@ export function TestimonialsSection() {
   return (
     <section id="testimonials" className="overflow-hidden bg-brand-bg-secondary py-24 shadow-[inset_0_20px_40px_rgba(0,0,0,0.05)] transition-colors duration-300 dark:bg-brand-bg-secondary-dark dark:shadow-[inset_0_20px_40px_rgba(0,0,0,0.4)]">
       <motion.div {...headerProps} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div {...childProps} className="mb-14 text-center">
-          <p className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
+        <motion.div key="header" {...childProps} className="mb-14 text-center">
+          <p key="testimonial-label" className="mb-3 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-accent-gold dark:text-brand-accent-gold-dark">
             What People Say
           </p>
-          <div className="relative inline-block">
+          <div key="testimonial-title-wrapper" className="relative inline-block">
             <h2 className="font-heading text-4xl font-semibold text-brand-text-primary dark:text-brand-text-primary-dark lg:text-5xl">
               Loved by Everyone
             </h2>

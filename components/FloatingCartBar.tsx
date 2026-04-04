@@ -34,8 +34,7 @@ export function FloatingCartBar() {
   }, [totalItems, isMounted]);
 
   // SSR Guard & Cart route exception
-  if (!isMounted) return null;
-  if (pathname === '/cart') return null;
+  if (!isMounted || totalItems === 0 || pathname === '/cart') return null;
 
   const isVisible = totalItems > 0;
 

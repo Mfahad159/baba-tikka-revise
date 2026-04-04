@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { headingFont, bodyFont } from '@/lib/fonts';
 import { Footer } from '@/components/sections/Footer';
-import { LayoutWrapper } from '@/components/LayoutWrapper';
+import MainWrapper from '@/components/MainWrapper';
 import { FloatingCartBar } from '@/components/FloatingCartBar';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import './globals.css';
@@ -60,17 +60,17 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${headingFont.variable} ${bodyFont.variable}`}
     >
-      <body className="flex min-h-[100svh] flex-col bg-brand-bg-primary font-body text-brand-text-primary antialiased dark:bg-brand-bg-primary-dark dark:text-brand-text-primary-dark transition-colors duration-300">
+      <body className="min-h-screen flex flex-col bg-brand-bg-primary font-body text-brand-text-primary antialiased dark:bg-brand-bg-primary-dark dark:text-brand-text-primary-dark transition-colors duration-300">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
           storageKey="baba-tikkah-theme"
         >
-          <LayoutWrapper>
+          <MainWrapper>
             {children}
-            <Footer />
-          </LayoutWrapper>
+          </MainWrapper>
+          <Footer />
           <FloatingCartBar />
         </ThemeProvider>
       </body>
